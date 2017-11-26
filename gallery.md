@@ -4,7 +4,6 @@ title: Gallery
 ---
 <html>
 <div id="my_gallery"
-    // gallery configuration
     data-my_gallery = 
     '{ 
       "thumbnailWidth":   "50",
