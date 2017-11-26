@@ -1,24 +1,28 @@
 # Dependencies
-markdown:         redcarpet
-highlighter:      pygments
+markdown:         kramdown
+highlighter:      rouge
 
 # Permalinks
 permalink:        pretty
-relative_permalinks: true
+# relative_permalinks: true
 
 # Setup
-title:            Hyde
-tagline:          'A Jekyll theme, with instant search'
-description:      'The popular <a href="http://hyde.getpoole.com/" target="_blank">Hyde theme</a> for <a href="http://jekyllrb.com" target="_blank">Jekyll</a>, now with instant-search capabilities. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> and <a href="https://www.algolia.com/" target="_blank">Algolia</a>'
-url:              https://github.com/algolia/algoliasearch-jekyll-hyde
-baseurl:          /algoliasearch-jekyll-hyde
+title:            Valentin Stefan
+tagline:          'R enthusiast'
+description:      'Check also my <a href="https://seethedatablog.wordpress.com/" target="_blank">WordPress blog</a>'
+url:              https://github.com/valentinitnelav/valentinitnelav.github.io
+baseurl:          /valentinitnelav.github.io
 # Travis will install Bundler dependencies in ./vendor, so we need to exclude it
 # otherwise Jekyll will try to build it (and fail)
 exclude:          [vendor]
 
 author:
-  name:           'Algolia'
-  url:            https://www.algolia.com/
+  name:           'Valentin Stefan'
+  url:            https://github.com/valentinitnelav
+# Thanks to Algolia for updates to original theme
+# author:
+#   name:           'Algolia'
+#   url:            https://www.algolia.com/
 # Thanks to @mdo for the original theme
 # author:
 #   name:           'Mark Otto'
@@ -30,7 +34,7 @@ paginate:         5
 version:          2.1.0
 
 github:
-    repo:         https://github.com/algolia/algoliasearch-jekyll-hyde
+    repo:         https://github.com/valentinitnelav/valentinitnelav.github.io
 
 # Algolia
 gems:
