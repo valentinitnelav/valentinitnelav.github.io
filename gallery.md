@@ -24,7 +24,7 @@ title: Gallery
 
 [//]: # URL-s could be also written like `{{site.url}}/gallery/Choropleth world map, HPI - tmap.png`
 
-[f1]: {{site.url}}/gallery/Choropleth world map, HPI - tmap.png
+[f1]: {{site.baseurl}}/gallery/Choropleth world map, HPI - tmap.png
 [1]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/Choropleth%20world%20map%2C%20HPI%20-%20tmap.R
 
 [f2]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/world cities map in Eckert IV ggplot & ggrepel.png
