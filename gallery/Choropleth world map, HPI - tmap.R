@@ -1,8 +1,7 @@
-#############################################################
+###############################################################################
 ## Script to create a choropleth map (world map) with tmap package
-#############################################################
+###############################################################################
 
-# install.packages("tmap")
 require(tmap)
 data(World) # load world map from tmap package
 # for more data examples try:
@@ -49,18 +48,19 @@ mapWorld  <- tmap::tm_shape(World, projection="eck4") +
               legend.format = list(scientific = TRUE,
                                    format     = "f"))
 
-# Visualize the map object
-mapWorld
-
 # save map as png
-save_tmap(tm = mapWorld, filename = "HPI_tmap.png", 
-          units = "cm", width = 15, height = 8, dpi = 600)
+save_tmap(tm = mapWorld, 
+          filename = "gallery/Choropleth world map, HPI - tmap.png", 
+          units = "cm", width = 15, height = 8, dpi = 300)
 
 # save map as html (interactive)
 save_tmap(tm = mapWorld, 
-          filename = "HPI_tmap.html")
+          filename = "Choropleth world map, HPI - tmap.html")
 
+# =============================================================================
 # Some references:
+# =============================================================================
+
 # https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html
 # https://github.com/mtennekes/tmap/tree/master/demo/ClassicMap
 # https://cran.r-project.org/web/packages/tmap/vignettes/tmap-modes.html
