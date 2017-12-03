@@ -3,16 +3,23 @@ layout: page
 title: Gallery
 ---
 ### In progress...
-<span>
-<a href = "https://github.com/valentinitnelav/Graphs/blob/master/Choropleth%20world%20map%2C%20HPI%20-%20tmap.R"> <img src = "https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/HPI_tmap.png" alt = "Choropleth world map, HPI - tmap" height = "125px"/></a>
-<a href = "https://github.com/valentinitnelav/Graphs/blob/master/Choropleth%20world%20map%2C%20HPI%20-%20tmap.R"> <img src = "https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/HPI_tmap.png" alt = "Choropleth world map, HPI - tmap" height = "100px"/></a>
-</span>
 
-![useful image](https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/HPI_tmap.png)
+[//]: # =======================================================================
+[//]: # Table of graphs/images (in 3 columns)
+[//]: # =======================================================================
 
-<div id="slider">
-<figure>
-<img src="https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/HPI_tmap.png" alt>
-<img src="https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/HPI_tmap.png" alt>
-</figure>
-</div>
+||
+------------ | ------------ | ------------
+[![][f1]][1] | [![][f2]][2] | [![][f1]][1]
+[![][f2]][2] |
+
+
+[//]: # =======================================================================
+[//]: # Image and code references
+[//]: # =======================================================================
+
+[f1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/HPI_tmap.png
+[1]: https://github.com/valentinitnelav/Graphs/blob/master/Choropleth%20world%20map%2C%20HPI%20-%20tmap.R
+
+[f2]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/world map in Eckert IV ggplot & ggrepel.png
+[2]: 
