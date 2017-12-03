@@ -175,9 +175,12 @@ ggplot() +
         legend.position = c(1.01, 0.25), # relative position of legend
         plot.margin = unit(c(t=0, r=2, b=0, l=0), unit="cm")) # adjust margins
 
-# Save to pdf and png file
-ggsave("map_draft_1.pdf", width=29.7, height=14, units="cm")
-ggsave("map_draft_1.png", width=29.7, height=14, units="cm", dpi=300)
+# Save as png and pdf file
+ggsave("gallery/world cities map in Eckert IV ggplot & ggrepel.png", 
+       width=30, height=14, units="cm", dpi=75)
+ggsave("gallery/world cities map in Eckert IV ggplot & ggrepel.pdf", 
+       width=30, height=14, units="cm")
+
 
 # =============================================================================
 # Some helpful links:

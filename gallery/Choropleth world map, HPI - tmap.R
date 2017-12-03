@@ -51,7 +51,7 @@ mapWorld  <- tmap::tm_shape(World, projection="eck4") +
 # save map as png
 save_tmap(tm = mapWorld, 
           filename = "gallery/Choropleth world map, HPI - tmap.png", 
-          units = "cm", width = 15, height = 8, dpi = 300)
+          units = "cm", width = 15, height = 8, dpi = 75)
 
 # save map as html (interactive)
 save_tmap(tm = mapWorld, 
