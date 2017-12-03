@@ -56,6 +56,8 @@ save_tmap(tm = mapWorld,
 # save map as html (interactive)
 save_tmap(tm = mapWorld, 
           filename = "Choropleth world map, HPI - tmap.html")
+# View the html file at:
+# https://rawgit.com/valentinitnelav/valentinitnelav.github.io/master/gallery/Choropleth%20world%20map%2C%20HPI%20-%20tmap.html
 
 # =============================================================================
 # Some references:
