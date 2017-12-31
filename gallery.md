@@ -2,8 +2,7 @@
 layout: page
 title: Gallery
 ---
-### (in progress...)
-**Migrating from WordPress**
+
 Here, I try to collect notes from exploring with various graphs and data visualization methods. The coding style might differ from one graph to another depending on how I explored with new features, packages, etc., or on how I forgot to use them ...
 
 [//]: # =======================================================================
@@ -45,7 +44,7 @@ Here, I try to collect notes from exploring with various graphs and data visuali
 # Barplots
 [//]: # =======================================================================
 
-[![][b1]{:width="250px"}][cb1]          |                                         | 
+[![][b1]{:width="250px"}][cb1]          | [![][b2]{:width="250px"}][cb2]          | 
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
                                         |                                         |
 
@@ -55,3 +54,6 @@ Here, I try to collect notes from exploring with various graphs and data visuali
 
 [b1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/barplot base R (1).png
 [cb1]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/barplot_base_r_1.R
+
+[b2]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/barplot_ggplot_dodged_1.png
+[cb2]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/barplot_ggplot_dodged_1.R
