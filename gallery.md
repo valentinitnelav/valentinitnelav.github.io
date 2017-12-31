@@ -14,9 +14,13 @@ Here, I try to collect notes from exploring with various graphs and data visuali
 [//]: # This works with `markdown: kramdown` as dependency in `_config.yml` file in repository.
 [//]: # https://stackoverflow.com/questions/14675913/how-to-change-image-size-markdown#30973855
 
-[![][m1]{:width="250px"}][cm1]          | [![][m2]{:width="250px"}][cm2]          | [![][m3]{:width="250px"}][cm3]
+|                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
+[![][m1]{:width="250px"}][cm1]          | [![][m2]{:width="250px"}][cm2]          | [![][m3]{:width="250px"}][cm3]
+tmap package - choropleth map           | ggplot2 & ggrepel - Eckert IV proj.     | ggplot2 - Robinson projection
 [![][m4]{:width="250px"}][cm4]          | [![][m5]{:width="250px"}][cm5]          |
+ggplot2 - Pacific centered world map    | Shift central (prime) meridian          |
+
 
 [//]: # -----------------------------------------------------------------------
 [//]: # Links to maps (m) and code (cm)
@@ -44,9 +48,11 @@ Here, I try to collect notes from exploring with various graphs and data visuali
 # Barplots
 [//]: # =======================================================================
 
-[![][b1]{:width="250px"}][cb1]          | [![][b2]{:width="250px"}][cb2]          | 
+|                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-                                        |                                         |
+[![][b1]{:width="250px"}][cb1]          | [![][b2]{:width="250px"}][cb2]          |
+base R                                  | ggplot2                                 |
+
 
 [//]: # -----------------------------------------------------------------------
 [//]: # Links to barplots (b) and code (cb)
