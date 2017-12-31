@@ -1,5 +1,5 @@
 ###############################################################################
-# Barplot with CI/error bars side-by-side in ggplot
+# Barplot, bars side-by-side with CI/error lines (with ggplot2)
 # see more at: http://www.cookbook-r.com/Graphs/Plotting_means_and_error_bars_(ggplot2)/
 ###############################################################################
 
@@ -7,7 +7,7 @@
 library(ggplot2)
 
 # =============================================================================
-# Create some data
+# Create fake data
 # =============================================================================
 # For ggplot, data must be in long format (not wide format)
 set.seed(1)
@@ -37,13 +37,14 @@ my_barplot <-
                     values = c("Sp1" = "gray70", 
                                "Sp2" = "gray40"),
                     labels = c("Species 1", "Species 2")) + 
-  # plot CIs (add a point shape as well)
+  # plot CI lines (and a mid-point shape)
   geom_errorbar(aes(ymax = upper.CI, 
                     ymin = lower.CI), 
                 size  = .4, 
                 width = .15, 
                 linetype = "solid", 
                 position = position_dodge(.9)) +
+  # add the mid-point shape
   geom_point(position = position_dodge(width = .9), 
              shape = "-", 
              show.legend = FALSE) +
@@ -54,11 +55,11 @@ my_barplot <-
   # set range on OY axes and adjust the distance (gap) from OX axes
   scale_y_continuous(limits = c(0, 10), 
                      expand = c(0, 0)) +
-  # Final adjustments:
   # set axis labels
   labs(x = "", 
        y = "Means") +
   theme_bw() + # eliminate default background 
+  # adjust some theme components
   theme(panel.grid = element_blank(), # eliminate grids
         # set font family for all text within the plot ("serif" should work as "Times New Roman")
         # note that this can be overridden with other adjustment functions below
@@ -83,11 +84,11 @@ my_barplot <-
         legend.justification = c(0,1),
         legend.position = c(0,1))
 
-# save as png
+# Save as png
 ggsave(filename = "gallery/barplot_ggplot_dodged_1.png",
        plot = my_barplot, 
        width = 12, height = 8, units = "cm", dpi = 75)
-# save as pdf
+# Save as pdf
 ggsave(filename = "gallery/barplot_ggplot_dodged_1.pdf",
        plot = my_barplot, 
        width = 12, height = 8, units = "cm")
