@@ -60,8 +60,8 @@ ggplot2, colored confidence bands       | ggplot2, colored confidence bands     
 [l1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/colored_confidence_bands.png
 [cl1]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/colored_confidence_bands.R
 
-[l1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/colored_confidence_lines.png
-[cl1]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/colored_confidence_lines.R
+[l2]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/colored_confidence_lines.png
+[cl2]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/colored_confidence_lines.R
 
 
 [//]: # ===============================================================================================================
