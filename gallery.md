@@ -5,9 +5,9 @@ title: Gallery
 
 Here, I try to collect notes from exploring with various graphs and data visualization methods. The coding style might differ from one graph to another depending on how I explored with new features, packages, etc., or on how I forgot to use them ...
 
-[//]: # =======================================================================
+[//]: # ===============================================================================================================
 # Maps
-[//]: # =======================================================================
+[//]: # ===============================================================================================================
 
 [//]: # Table of graphs/images (in 3 columns)
 [//]: # Set width or height of images with syntax like `{:width="250px"}`
@@ -44,26 +44,29 @@ ggplot2 - Pacific centered world map    | Shift central (prime) meridian        
 [m5]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/Shift central (prime) meridian.png
 [cm5]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/Shift%20central%20(prime)%20meridian.R
 
-[//]: # =======================================================================
+[//]: # ===============================================================================================================
 # Line and dot plots
-[//]: # =======================================================================
+[//]: # ===============================================================================================================
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-[![][l1]{:width="250px"}][cl1]          |                                         |
-ggplot2, colored confidence bands       |                                         |
+[![][l1]{:width="250px"}][cl1]          | [![][l2]{:width="250px"}][cl2]          |
+ggplot2, colored confidence bands       | ggplot2, colored confidence bands       |
 
 [//]: # -----------------------------------------------------------------------
-[//]: # Links to line&dot plots (l) and code (cl)
+[//]: # Links to line & dot plots (l) and code (cl)
 [//]: # -----------------------------------------------------------------------
 
 [l1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/colored_confidence_bands.png
 [cl1]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/colored_confidence_bands.R
 
+[l1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/colored_confidence_lines.png
+[cl1]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/colored_confidence_lines.R
 
-[//]: # =======================================================================
+
+[//]: # ===============================================================================================================
 # Barplots
-[//]: # =======================================================================
+[//]: # ===============================================================================================================
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
