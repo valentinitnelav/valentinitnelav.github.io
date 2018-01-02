@@ -45,6 +45,23 @@ ggplot2 - Pacific centered world map    | Shift central (prime) meridian        
 [cm5]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/Shift%20central%20(prime)%20meridian.R
 
 [//]: # =======================================================================
+# Line and dot plots
+[//]: # =======================================================================
+
+|                                       |                                         |
+:-------------------------------------: | :-------------------------------------: | :-------------------------------------:
+[![][l1]{:width="250px"}][cl1]          |                                         |
+ggplot2, colored confidence bands       |                                         |
+
+[//]: # -----------------------------------------------------------------------
+[//]: # Links to line&dot plots (l) and code (cl)
+[//]: # -----------------------------------------------------------------------
+
+[l1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/colored_confidence_bands.png
+[cl1]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/colored_confidence_bands.R
+
+
+[//]: # =======================================================================
 # Barplots
 [//]: # =======================================================================
 
