@@ -1,5 +1,5 @@
-################################################################################
-# ggplot2: confidence bands and set order of line types in legend based on group.
+###############################################################################
+# ggplot2: draw confidence bands and set color manually
 ###############################################################################
 
 # install.packages("ggplot2")
@@ -18,7 +18,7 @@ my.data <- data.frame(x        = rep(x,2),
                       Function = rep(c("sin","cos"), each = 63))
 
 # =============================================================================
-# Plot barplot with ggplot
+# Plot
 # =============================================================================
 my_plot <- 
   ggplot(my.data, 
@@ -47,12 +47,13 @@ my_plot <-
   # set axis labels
   labs(x = "x", 
        y = "sin & cos") +
-  theme_bw() +  # eliminate default backgound
+  # theme without the default gray ggplot2 backgound
+  theme_bw() +
   # adjust some theme components
-  theme(panel.grid = element_blank(), # eliminate grids
+  theme(panel.grid = element_blank(), # eliminate default grids
         # set font family for all text within the plot ("serif" should work as "Times New Roman")
         # note that this can be overridden with other adjustment functions below
-        text = element_text(family="serif"),
+        text = element_text(family = "serif"),
         # adjust text in X-axis title
         axis.title.x = element_text(size = 12, face = "bold"),
         # adjust text in Y-axis title
