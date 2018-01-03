@@ -50,8 +50,8 @@ ggplot2 - Pacific centered world map    | Shift central (prime) meridian        
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-[![][l1]{:width="250px"}][cl1]          | [![][l2]{:width="250px"}][cl2]          |
-ggplot2, colored confidence bands       | ggplot2, colored confidence bands       |
+[![][l1]{:width="250px"}][cl1]          | [![][l2]{:width="250px"}][cl2]          | [![][l3]{:width="250px"}][cl3]
+ggplot2, colored confidence bands       | ggplot2, colored confidence bands       | ggplot2, dotplot with CIs
 
 [//]: # -----------------------------------------------------------------------
 [//]: # Links to line & dot plots (l) and code (cl)
@@ -63,6 +63,9 @@ ggplot2, colored confidence bands       | ggplot2, colored confidence bands     
 [l2]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/colored_confidence_lines.png
 [cl2]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/colored_confidence_lines.R
 
+[l3]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/dotplot_ci_bars.png
+[cl3]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/dotplot_ci_bars.R
+
 
 [//]: # ===============================================================================================================
 # Barplots
@@ -70,7 +73,7 @@ ggplot2, colored confidence bands       | ggplot2, colored confidence bands     
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-[![][b1]{:width="250px"}][cb1]          | [![][b2]{:width="250px"}][cb2]          |
+[![][b1]{:width="250px"}][cb1]          | [![][b2]{:width="250px"}][cb2]          | 
 base R                                  | ggplot2                                 |
 
 
