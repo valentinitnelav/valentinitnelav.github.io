@@ -10,15 +10,15 @@ Here, I try to collect notes from exploring with various graphs and data visuali
 [//]: # ===============================================================================================================
 
 [//]: # Table of graphs/images (in 3 columns)
-[//]: # Set width or height of images with syntax like `{:width="225px"}`
+[//]: # Set width or height of images with syntax like `{:width="300px"}`
 [//]: # This works with `markdown: kramdown` as dependency in `_config.yml` file in repository.
 [//]: # https://stackoverflow.com/questions/14675913/how-to-change-image-size-markdown#30973855
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-[![][m1]{:width="225px"}][cm1]          | [![][m2]{:width="225px"}][cm2]          | [![][m3]{:width="225px"}][cm3]
+[![][m1]{:width="300px"}][cm1]          | [![][m2]{:width="300px"}][cm2]          | [![][m3]{:width="300px"}][cm3]
 tmap package - choropleth map           | ggplot2 & ggrepel - Eckert IV proj.     | ggplot2 - Robinson projection
-[![][m4]{:width="225px"}][cm4]          | [![][m5]{:width="225px"}][cm5]          |
+[![][m4]{:width="300px"}][cm4]          | [![][m5]{:width="300px"}][cm5]          |
 ggplot2 - Pacific centered world map    | Shift central (prime) meridian          |
 
 
@@ -50,7 +50,7 @@ ggplot2 - Pacific centered world map    | Shift central (prime) meridian        
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-[![][l1]{:width="225px"}][cl1]          | [![][l2]{:width="225px"}][cl2]          | [![][l3]{:width="225px"}][cl3]
+[![][l1]{:width="300px"}][cl1]          | [![][l2]{:width="300px"}][cl2]          | [![][l3]{:width="300px"}][cl3]
 ggplot2, colored confidence bands       | ggplot2, colored confidence bands       | ggplot2, dotplot with CIs
 
 [//]: # -----------------------------------------------------------------------
@@ -73,7 +73,7 @@ ggplot2, colored confidence bands       | ggplot2, colored confidence bands     
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-[![][b1]{:width="225px"}][cb1]          | [![][b2]{:width="225px"}][cb2]          | 
+[![][b1]{:width="300px"}][cb1]          | [![][b2]{:width="300px"}][cb2]          | 
 base R                                  | ggplot2                                 |
 
 
