@@ -3,7 +3,7 @@ layout: page
 title: Gallery
 ---
 
-Here, I try to collect notes from exploring with various graphs and data visualization methods. The coding style might differ from one graph to another depending on how I explored with new features, packages, etc., or on how I forgot to use them ...
+Here, I try to collect scripts from exploring with various graphs and data visualization methods. The coding style might differ from one graph to another depending on how I explored with new features, packages, etc., or on how I forgot to use them ... To access a script, simply click on the desired thumbnail.
 
 [//]: # ===============================================================================================================
 # Maps
@@ -17,9 +17,9 @@ Here, I try to collect notes from exploring with various graphs and data visuali
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
 [![][m1]{:width="300px"}][cm1]          | [![][m2]{:width="300px"}][cm2]          | [![][m3]{:width="300px"}][cm3]
-tmap package - choropleth map           | ggplot2 & ggrepel - Eckert IV proj.     | ggplot2 - Robinson projection
+tmap package: choropleth map            | ggplot2 & ggrepel: Eckert IV proj.      | ggplot2: Robinson projection
 [![][m4]{:width="300px"}][cm4]          | [![][m5]{:width="300px"}][cm5]          |
-ggplot2 - Pacific centered world map    | Shift central (prime) meridian          |
+ggplot2: Pacific centered world map     | Shift central (prime) meridian          |
 
 
 [//]: # -----------------------------------------------------------------------
@@ -51,7 +51,9 @@ ggplot2 - Pacific centered world map    | Shift central (prime) meridian        
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
 [![][l1]{:width="300px"}][cl1]          | [![][l2]{:width="300px"}][cl2]          | [![][l3]{:width="300px"}][cl3]
-ggplot2, colored confidence bands       | ggplot2, colored confidence bands       | ggplot2, dotplot with CIs
+ggplot2: colored confidence bands       | ggplot2: colored confidence bands       | ggplot2: dotplot with CIs
+[![][l4]{:width="300px"}][cl4]          | |
+ggplot2: simple confidence bands        | |
 
 [//]: # -----------------------------------------------------------------------
 [//]: # Links to line & dot plots (l) and code (cl)
@@ -65,6 +67,9 @@ ggplot2, colored confidence bands       | ggplot2, colored confidence bands     
 
 [l3]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/dotplot_ci_bars.png
 [cl3]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/dotplot_ci_bars.R
+
+[l4]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/simple_confidence_bands.png
+[cl4]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/simple_confidence_bands.R
 
 
 [//]: # ===============================================================================================================
