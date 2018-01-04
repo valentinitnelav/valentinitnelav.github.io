@@ -5,6 +5,13 @@ title: Gallery
 
 Here, I try to collect scripts from exploring with various graphs and data visualization methods. The coding style might differ from one graph to another depending on how I explored with new features, packages, etc., or on how I forgot to use them ... To access a script, simply click on the desired thumbnail.
 
+[//]: # This is a comment in markdown: `[//]: #` 
+[//]: # Each image (thumbnail) acts as a link to the script that generates it.
+[//]: # In markdown, this is an image insertion (reference-style): `![img_id]` or `![img_id]{:width="300px"}` for setting the width.
+[//]: # In markdown, this is a link that underlines the text/reference in front of it: `[code_id]` 
+[//]: # So, to link the image with its script, one can do: `![img_id][code_id]` or `![img_id]{:width="300px"}[code_id]`
+
+
 [//]: # ===============================================================================================================
 # Maps
 [//]: # ===============================================================================================================
@@ -16,9 +23,9 @@ Here, I try to collect scripts from exploring with various graphs and data visua
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-[![][m1]{:width="300px"}][cm1]          | [![][m2]{:width="300px"}][cm2]          | [![][m3]{:width="300px"}][cm3]
+![m1]{:width="300px"}[cm1]              | ![m2]{:width="300px"}[cm2]              | ![m3]{:width="300px"}[cm3]
 tmap package: choropleth map            | ggplot2 & ggrepel: Eckert IV proj.      | ggplot2: Robinson projection
-[![][m4]{:width="300px"}][cm4]          | [![][m5]{:width="300px"}][cm5]          |
+![m4]{:width="300px"}[cm4]              | ![m5]{:width="300px"}[cm5]              |
 ggplot2: Pacific centered world map     | Shift central (prime) meridian          |
 
 
@@ -44,16 +51,17 @@ ggplot2: Pacific centered world map     | Shift central (prime) meridian        
 [m5]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/Shift central (prime) meridian.png
 [cm5]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/Shift%20central%20(prime)%20meridian.R
 
+
 [//]: # ===============================================================================================================
 # Line and dot plots
 [//]: # ===============================================================================================================
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-[![][l1]{:width="300px"}][cl1]          | [![][l2]{:width="300px"}][cl2]          | [![][l3]{:width="300px"}][cl3]
+![l1]{:width="300px"}[cl1]              | ![l2]{:width="300px"}[cl2]              | ![l3]{:width="300px"}[cl3]
 ggplot2: colored confidence bands       | ggplot2: colored confidence bands       | ggplot2: dotplot with CIs
-[![][l4]{:width="300px"}][cl4]          | |
-ggplot2: simple confidence bands        | |
+![l4]{:width="300px"}[cl4]              | ![l5]{:width="300px"}[cl5]              |
+ggplot2: simple confidence bands        | ggplot2: simple confidence lines        |
 
 [//]: # -----------------------------------------------------------------------
 [//]: # Links to line & dot plots (l) and code (cl)
@@ -71,6 +79,9 @@ ggplot2: simple confidence bands        | |
 [l4]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/simple_confidence_bands.png
 [cl4]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/simple_confidence_bands.R
 
+[l5]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/simple_confidence_lines.png
+[cl5]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/simple_confidence_lines.R
+
 
 [//]: # ===============================================================================================================
 # Barplots
@@ -78,7 +89,7 @@ ggplot2: simple confidence bands        | |
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-[![][b1]{:width="300px"}][cb1]          | [![][b2]{:width="300px"}][cb2]          | 
+![b1]{:width="300px"}[cb1]              | ![b2]{:width="300px"}[cb2]              | 
 base R                                  | ggplot2                                 |
 
 
