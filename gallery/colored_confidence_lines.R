@@ -73,7 +73,7 @@ my_plot <-
 # Save as png
 ggsave(filename = "gallery/colored_confidence_lines.png",
        plot = my_plot, 
-       width = 10, height = 8, units = "cm", dpi = 75)
+       width = 10, height = 8, units = "cm", dpi = 150)
 # Save as pdf
 ggsave(filename = "gallery/colored_confidence_lines.pdf",
        plot = my_plot, 
