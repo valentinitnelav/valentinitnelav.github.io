@@ -87,7 +87,7 @@ my_plot <-
 # Save as png
 ggsave(filename = "gallery/dotplot_ci_bars.png",
        plot = my_plot, 
-       width = 10, height = 8, units = "cm", dpi = 75)
+       width = 10, height = 8, units = "cm", dpi = 100)
 # Save as pdf
 ggsave(filename = "gallery/dotplot_ci_bars.pdf",
        plot = my_plot, 
