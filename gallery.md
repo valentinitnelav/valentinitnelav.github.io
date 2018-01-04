@@ -60,8 +60,10 @@ ggplot2: Pacific centered world map     | Shift central (prime) meridian        
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
 [![l1]{:width="300px"}][cl1]            | [![l2]{:width="300px"}][cl2]            | [![l3]{:width="300px"}][cl3]
 ggplot2: colored confidence bands       | ggplot2: colored confidence bands       | ggplot2: dotplot with CIs
-[![l4]{:width="300px"}][cl4]            | [![l5]{:width="300px"}][cl5]            |
-ggplot2: simple confidence bands        | ggplot2: simple confidence lines        |
+[![l4]{:width="300px"}][cl4]            | [![l5]{:width="300px"}][cl5]            | [![l6]{:width="300px"}][cl6]
+ggplot2: simple confidence bands        | ggplot2: simple confidence lines        | ggplot2: lineplot, inwards ticks
+[![l7]{:width="300px"}][cl7]            | |
+base R: lineplot, inwards ticks         | |
 
 [//]: # -----------------------------------------------------------------------
 [//]: # Links to line & dot plots (l) and code (cl)
@@ -82,6 +84,11 @@ ggplot2: simple confidence bands        | ggplot2: simple confidence lines      
 [l5]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/simple_confidence_lines.png
 [cl5]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/simple_confidence_lines.R
 
+[l6]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/lineplot_inwards_ticks_ggplot.png
+[cl6]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/lineplot_inwards_ticks_ggplot.R
+
+[l7]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/lineplot_inwards_ticks_base_R_plot.png
+[cl7]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/lineplot_inwards_ticks_base_R_plot.R
 
 [//]: # ===============================================================================================================
 # Barplots
