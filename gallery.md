@@ -8,8 +8,8 @@ Here, I try to collect scripts from exploring with various graphs and data visua
 [//]: # This is a comment in markdown: `[//]: #` 
 [//]: # Each image (thumbnail) acts as a link to the script that generates it.
 [//]: # In markdown, this is an image insertion (reference-style): `![img_id]` or `![img_id]{:width="300px"}` for setting the width.
-[//]: # In markdown, this is a link that underlines the text/reference in front of it: `[code_id]` 
-[//]: # So, to link the image with its script, one can do: `![img_id][code_id]` or `![img_id]{:width="300px"}[code_id]`
+[//]: # In markdown, this is a link that underlines the text/reference placed between []: `[][code_id]` 
+[//]: # So, to link the image with its script, one can do: `[![img_id]][code_id]` or `[![img_id]{:width="300px"}][code_id]`
 
 
 [//]: # ===============================================================================================================
@@ -23,9 +23,9 @@ Here, I try to collect scripts from exploring with various graphs and data visua
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-![m1]{:width="300px"}[cm1]              | ![m2]{:width="300px"}[cm2]              | ![m3]{:width="300px"}[cm3]
+[![m1]{:width="300px"}][cm1]            | [![m2]{:width="300px"}][cm2]            | [![m3]{:width="300px"}][cm3]
 tmap package: choropleth map            | ggplot2 & ggrepel: Eckert IV proj.      | ggplot2: Robinson projection
-![m4]{:width="300px"}[cm4]              | ![m5]{:width="300px"}[cm5]              |
+[![m4]{:width="300px"}][cm4]            | [![m5]{:width="300px"}][cm5]            |
 ggplot2: Pacific centered world map     | Shift central (prime) meridian          |
 
 
@@ -58,9 +58,9 @@ ggplot2: Pacific centered world map     | Shift central (prime) meridian        
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-![l1]{:width="300px"}[cl1]              | ![l2]{:width="300px"}[cl2]              | ![l3]{:width="300px"}[cl3]
+[![l1]{:width="300px"}][cl1]            | [![l2]{:width="300px"}][cl2]            | [![l3]{:width="300px"}][cl3]
 ggplot2: colored confidence bands       | ggplot2: colored confidence bands       | ggplot2: dotplot with CIs
-![l4]{:width="300px"}[cl4]              | ![l5]{:width="300px"}[cl5]              |
+[![l4]{:width="300px"}][cl4]            | [![l5]{:width="300px"}][cl5]            |
 ggplot2: simple confidence bands        | ggplot2: simple confidence lines        |
 
 [//]: # -----------------------------------------------------------------------
@@ -89,7 +89,7 @@ ggplot2: simple confidence bands        | ggplot2: simple confidence lines      
 
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
-![b1]{:width="300px"}[cb1]              | ![b2]{:width="300px"}[cb2]              | 
+[![b1]{:width="300px"}][cb1]            | [![b2]{:width="300px"}][cb2]            | 
 base R                                  | ggplot2                                 |
 
 
