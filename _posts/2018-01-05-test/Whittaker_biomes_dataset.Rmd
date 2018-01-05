@@ -1,7 +1,6 @@
 ---
+layout: post
 title: "Whittaker biomes - the dataset"
-author: "Valentin Stefan"
-date: "`r Sys.Date()`"
 output:
   html_document:
     toc: true
