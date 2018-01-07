@@ -1,6 +1,6 @@
 ---
 title: "Digitize graphs with R - Import and edit graphs from PDF files"
-author: "by: Valentin Stefan"
+author: "by: [Valentin Stefan](https://github.com/valentinitnelav) "
 date: "last update: `r Sys.Date()`"
 output:
   html_document:
