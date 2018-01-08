@@ -109,3 +109,24 @@ base R                                  | ggplot2                               
 
 [b2]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/gallery/barplot_ggplot_dodged_1.png
 [cb2]: https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/barplot_ggplot_dodged_1.R
+
+
+[//]: # ===============================================================================================================
+# Other
+[//]: # ===============================================================================================================
+
+|                                       |                                         |
+:-------------------------------------: | :-------------------------------------: | :-------------------------------------:
+[![o1]{:width="300px"}][co1]            | [![o2]{:width="300px"}][co2]            | 
+base R                                  | ggplot2                                 |
+
+
+[//]: # -----------------------------------------------------------------------
+[//]: # Links to plots (o) and code (co)
+[//]: # -----------------------------------------------------------------------
+
+[b1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/tree_labeled.png
+[cb1]: https://rawgit.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/2018-01-07-ggtree.html
+
+[b2]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/tree_labeled_bars.png
+[cb2]: https://rawgit.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/2018-01-07-ggtree.html
