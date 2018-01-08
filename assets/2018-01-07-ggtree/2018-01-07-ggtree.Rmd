@@ -1,5 +1,5 @@
 ---
-title: "Visualization and annotation of a phylogenetic tree with `ggtree` package."
+title: "Visualization and annotation of a phylogenetic tree with `ggtree` package"
 author: "by: [Valentin Stefan](https://github.com/valentinitnelav) "
 date: "last update: `r Sys.Date()`"
 output:
@@ -14,7 +14,7 @@ output:
     highlight: "tango"
 ---
 
-I use in this example [ggtree]( https://bioconductor.org/packages/release/bioc/html/ggtree.html) R package, which is designed for "visualization and annotation of phylogenetic trees with their covariates and other associated data".
+I use in this example the [ggtree]( https://bioconductor.org/packages/release/bioc/html/ggtree.html) R package, which is designed for "visualization and annotation of phylogenetic trees with their covariates and other associated data".
 
 [//]: # ===============================================================================================================
 # Generate sample data
