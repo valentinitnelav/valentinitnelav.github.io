@@ -118,15 +118,15 @@ base R                                  | ggplot2                               
 |                                       |                                         |
 :-------------------------------------: | :-------------------------------------: | :-------------------------------------:
 [![o1]{:width="300px"}][co1]            | [![o2]{:width="300px"}][co2]            | 
-base R                                  | ggplot2                                 |
+Annotation with `ggtree`                | Annotation with `ggtree`                |
 
 
 [//]: # -----------------------------------------------------------------------
 [//]: # Links to plots (o) and code (co)
 [//]: # -----------------------------------------------------------------------
 
-[b1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/tree_labeled.png
-[cb1]: https://rawgit.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/2018-01-07-ggtree.html
+[o1]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/tree_labeled.png
+[co1]: https://rawgit.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/2018-01-07-ggtree.html
 
-[b2]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/tree_labeled_bars.png
-[cb2]: https://rawgit.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/2018-01-07-ggtree.html
+[o2]: https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/tree_labeled_bars.png
+[co2]: https://rawgit.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-07-ggtree/2018-01-07-ggtree.html
