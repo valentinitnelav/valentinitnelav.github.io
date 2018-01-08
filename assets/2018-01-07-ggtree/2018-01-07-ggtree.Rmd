@@ -1,0 +1,319 @@
+---
+title: "Visualization and annotation of a phylogenetic tree with `ggtree` package."
+author: "by: [Valentin Stefan](https://github.com/valentinitnelav) "
+date: "last update: `r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    fig_caption: true
+    number_sections: true
+    theme: "journal"
+    highlight: "tango"
+---
+
+I use in this example [ggtree]( https://bioconductor.org/packages/release/bioc/html/ggtree.html) R package, which is designed for "visualization and annotation of phylogenetic trees with their covariates and other associated data".
+
+[//]: # ===============================================================================================================
+# Generate sample data
+[//]: # ===============================================================================================================
+
+**Load R packages**
+```{r message = FALSE}
+# Note: intsall `ggtree` from bioconductor
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("ggtree")
+library(ggtree)
+library(ape)
+library(data.table)
+library(RColorBrewer)
+```
+
+
+**Generate a random tree**
+```{r fig.show = 'hold', out.width = '45%', fig.align = 'center', fig.cap = 'Simple tree plots using plot.phylo() from ape package.'}
+set.seed(2018)
+tree <- ape::rcoal(20)
+
+# Simple tree plots using plot.phylo() from ape package
+par(mar = c(4, 4, 1, 1))
+plot.phylo(tree)
+plot.phylo(tree, type = "fan")
+```
+
+
+**Generate annotation data**
+```{r}
+set.seed(2018)
+my_info <- data.table(tip_lbs = tree$tip.label,
+                      groupA = c(rep(1, 3), rep(2, 6), rep(3, 11)),
+                      groupB = c(1,1,1,2,2,3,3,3,2,4,4,4,1,1,2,4,4,4,4,1),
+                      val = rnorm(20))
+my_info[, ':=' (groupA = paste0("group_A", groupA),
+                groupB = paste0("group_B", groupB))]
+my_info
+```
+
+[//]: # ===============================================================================================================
+# Prepare tree & data for plotting
+[//]: # ===============================================================================================================
+
+**Taxa classification with `ggtree::groupOTU`**
+
+```{r}
+# Split tip labels by desired grouping variable
+grA <- split(my_info$tip_lbs, my_info$groupA)
+grA
+```
+
+```{r}
+# Use groupOTU for taxa classification
+tree_grA <- ggtree::groupOTU(tree, grA)
+str(tree_grA)
+# check all group labels
+levels(attributes(tree_grA)$group) 
+# If there is a "0" group label, overwrite it.
+# "0 is for those didn't belong to any group."
+# https://github.com/GuangchuangYu/ggtree/issues/127
+# Overwrite "0"
+levels(attributes(tree_grA)$group)[1] <- "group_A1"
+# Reorder factor levels if needed (this controls the order in the legend)
+attributes(tree_grA)$group <- factor(x = attributes(tree_grA)$group, 
+                                     levels = c("group_A3", "group_A2", "group_A1"))
+```
+
+[//]: # ===============================================================================================================
+# Build a simple tree view with `ggtree`
+[//]: # ===============================================================================================================
+
+**Experiment with color**
+```{r fig.show = 'hold', out.width = '45%', fig.align = 'center', fig.cap = 'Experiment with color'}
+my_cols <- RColorBrewer::brewer.pal(n = 3, name = "Set1")
+names(my_cols) <- levels(attributes(tree_grA)$group)
+scales::show_col(my_cols); my_cols
+```
+
+**Simple tree view**
+```{r}
+tree_plot <- 
+  ggtree(tr = tree_grA, 
+         # color by group attribute, check str(tree_grA)
+         mapping = aes(color = group), 
+         layout  = 'circular',
+         # set line thikness
+         size = 1) +
+  # adjust coloring of main groups
+  scale_color_manual(name = 'Group A',
+                     values = my_cols)
+
+# Add the tip labels
+tree_plot + geom_tiplab(size = 4, aes(angle = angle))
+```
+
+[//]: # ===============================================================================================================
+# Prepare annotation data
+[//]: # ===============================================================================================================
+
+## Join annotation data with the tree view
+```{r}
+tree_plot <- tree_plot %<+% my_info 
+```
+
+## Process the updated tree view data.
+This step is need for being able to place segments and labels around the tree view for desired groups.
+```{r}
+tree_dt <- data.table(tree_plot$data)
+head(tree_dt)
+# select only the tip labels and order by coord y
+tree_dt <- tree_dt[isTip == TRUE][order(y)]
+
+# Make table with y cords for each groupB in consecutive order; 
+# this helps for drawing & labeling segments.
+# Note the usage of "rleid" function, which is a grouping ID generator,
+# needed because consecutive rows of an identical reoccurring group must form a unique group.
+coord_groups <- tree_dt[, .(y1 = y[1],
+                            y2 = y[.N],
+                            angle = mean(angle),
+                            n = .N), # optional - helps with counting
+                        by = .(groupB, 
+                               id_gr = rleid(groupB, 
+                                             prefix = "grp"))]
+coord_groups
+# Compute the middle y - will be used for placing the group label;
+# similarly the mean angle was computed above already. 
+coord_groups[, y_mid := rowMeans(.SD), .SDcols = c("y1", "y2")]
+# For groups that y1=y2, adjust their y coordinates so that a segment gets drawn;
+# if not, no segment get drawn for such cases.
+coord_groups[, y1_adj := ifelse(y1 == y2, y1 - 0.25, y1)]
+coord_groups[, y2_adj := ifelse(y1 == y2, y2 + 0.25, y2)]
+
+# Labels need angle adjustment for cases between 90 and 270 dg
+coord_groups[, angle_adj := ifelse(angle %between% c(90, 180), 
+                                   yes = angle + 180,
+                                   no = ifelse(angle > 180 & angle <= 270,
+                                               yes = angle - 180,
+                                               no = angle))]
+
+# Labels with angles between 90 and 270 dg
+# need change of horizontal adjustment argument from 0 to 1.
+coord_groups[, hjust_adj := ifelse(angle %between% c(90, 270), yes = 1L, no = 0L)]
+
+# if needed, coloring could be binary 
+# coord_groups[, col := ifelse(.I%%2, 0.5, 1)]
+coord_groups
+```
+The data table `coord_groups` will be used in `geom_segment` and `geom_text` below.
+
+[//]: # ===============================================================================================================
+# Annotate tree
+## Annotate groups with segments and text
+[//]: # ===============================================================================================================
+```{r}
+# Define variable to control x coordinate of segments & labels
+my_x <- max(tree_dt$x) + 0.05
+
+tree_labeled <- 
+  tree_plot + 
+  # Add line segments for each group.
+  geom_segment(data = coord_groups,
+               aes(x = my_x, 
+                   y = y1_adj, 
+                   xend = my_x, 
+                   yend = y2_adj),
+               color = "black",
+               lineend = "butt",
+               size = 3) +
+  # Add text group labels at the middle of each segment.
+  geom_text(data = coord_groups,
+            aes(x = my_x,
+                y = y_mid,
+                angle = angle_adj,
+                hjust = hjust_adj,
+                label = groupB),
+            vjust = 0.5, 
+            size  = 2.5,
+            nudge_x = 0.05, # Offsetting label from its default x coordinate.
+            color = "black") +
+  # Adjust theme components
+  theme(
+    # Set font size & family - affects legend only 
+    # "sans" = "Arial" and is the default on Windows OS; check windowsFonts()
+    text = element_text(size = 10, family = "sans"),
+    # Grab bottom-right (x=1, y=0) legend corner 
+    legend.justification = c(1,0),
+    # and position it in the bottom-right plot area (needs some tweaking)
+    legend.position = c(1.1, 0.05),
+    legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    # Set key hight - affects spacing between legend items (keys).
+    legend.key.height = unit(4, "mm"),
+    # Set margin around entire plot. Needs some try-and-error approach until ok,
+    # especially if you save the plot with `ggsave`.
+    plot.margin = unit(c(t = 0.2, r = 1.3, b = -0.35, l = -0.2), "cm")
+  )
+tree_labeled
+
+```
+
+Save tree view as `png` file. If a certain size is desired for the png file, then one might also need to adjust graphical element sizes, legend position and plot margins above in the geoms or theme components section.
+```{r}
+ggsave(plot = tree_labeled, filename = "tree_labeled.png", 
+       width = 13, height = 11.5, units = "cm", dpi = 300)
+```
+
+[//]: # ===============================================================================================================
+## Add rectangles at tip labels 
+[//]: # ===============================================================================================================
+
+```{r}
+# Define variable to control the x coordinates of bars (segments)
+my_factor <- 0.05
+x_base <- max(tree_dt$x) + abs(min(tree_dt$val, na.rm = TRUE))*my_factor + 0.02
+
+# Define variable to control the x coordinates of segments & labels
+my_x <- x_base + max(tree_dt$val, na.rm = TRUE)*my_factor + 0.05
+
+# Categorize values - binary
+tree_dt[, categ := ifelse(val <= 0, "neg", "pos")]
+
+tree_bars <- 
+  tree_plot +
+  # Add a disc to plot bars on top of it
+  geom_rect(data = tree_dt,
+            aes(xmin = x_base + min(val, na.rm = TRUE)*my_factor,
+                ymin = 0,
+                xmax = x_base + max(val, na.rm = TRUE)*my_factor,
+                ymax = max(y)+1), # +1 to force complete circle (otherwise a stripe of white remains)
+            color = NA, # set NA so to avoid coloring borders
+            fill = "#deebf7", # or try "#8da0cb"
+            alpha = 0.1) +
+  # Add bars for each tip label
+  geom_rect(data = tree_dt,
+            aes(xmin = x_base,
+                ymin = y - 0.1,
+                xmax = x_base + val*my_factor,
+                ymax = y + 0.1,
+                fill = categ),
+            # no borders
+            color = NA) +
+  # Fill the bars
+  scale_fill_manual(name   = 'Some variable',
+                    breaks = c("neg", "pos"),
+                    values = c("neg" = "#fc8d62",
+                               "pos" = "#66c2a5"),
+                    labels = c("negative", "positive")) +
+  # Add a ring (serves as reference for bars)
+  geom_segment(data = tree_dt,
+               aes(x = x_base, 
+                   y = 0, 
+                   xend = x_base, 
+                   yend = max(y)+1),
+               color = "gray50",
+               linetype = "dashed", 
+               size = 0.25) +
+  # Add line segments for each group.
+  geom_segment(data = coord_groups,
+               aes(x = my_x, 
+                   y = y1_adj, 
+                   xend = my_x, 
+                   yend = y2_adj),
+               color = "black",
+               lineend = "butt",
+               size = 3) +
+  # Add text group labels at the middle of each segment.
+  geom_text(data = coord_groups,
+            aes(x = my_x,
+                y = y_mid,
+                angle = angle_adj,
+                hjust = hjust_adj,
+                label = groupB),
+            vjust = 0.5, 
+            size  = 2.5,
+            nudge_x = 0.05, # Offsetting label from its default x coordinate.
+            color = "black") +
+  theme(
+    # Set font size & family - affects legend only 
+    # "sans" = "Arial" and is the default on Windows OS; check windowsFonts()
+    text = element_text(size = 10, family = "sans"),
+    # Grab bottom-right (x=1, y=0) legend corner 
+    legend.justification = c(1,0),
+    # and position it in the bottom-right plot area.
+    legend.position = c(1.25, 0.1),
+    legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    # Set height of legend items (keys). This affects spacing between them as well.
+    legend.key.height = unit(4, "mm"),
+    # Set margin around entire plot.
+    plot.margin = unit(c(t = 0.4, r = 2.6, b = -0.6, l = 0), "cm")
+  )
+
+# Not sure why the labels got a weird angle though.
+tree_bars
+```
+
+Save tree view as `png` file. As mentioned above, if a certain size is desired for the png file, then one might also need to adjust graphical element sizes, legend position and plot margins above in the geoms or theme components section.
+
+```{r}
+ggsave(plot = tree_bars, filename = "tree_labeled_bars.png", 
+       width = 13, height = 11.5, units = "cm", dpi = 300)
+```
