@@ -96,7 +96,7 @@ scales::show_col(my_cols); my_cols
 ```
 
 **Simple tree view**
-```{r}
+```{r fig.align = 'center', fig.cap = 'Simple tree view with `ggtree` and colored groups (clades)'}
 tree_plot <- 
   ggtree(tr = tree_grA, 
          # color by group attribute, check str(tree_grA)
@@ -121,7 +121,7 @@ tree_plot + geom_tiplab(size = 4, aes(angle = angle))
 tree_plot <- tree_plot %<+% my_info 
 ```
 
-## Process the updated tree view data.
+## Process the updated tree view data
 This step is need for being able to place segments and labels around the tree view for desired groups.
 ```{r}
 tree_dt <- data.table(tree_plot$data)
@@ -144,10 +144,13 @@ coord_groups
 # Compute the middle y - will be used for placing the group label;
 # similarly the mean angle was computed above already. 
 coord_groups[, y_mid := rowMeans(.SD), .SDcols = c("y1", "y2")]
-# For groups that y1=y2, adjust their y coordinates so that a segment gets drawn;
-# if not, no segment get drawn for such cases.
-coord_groups[, y1_adj := ifelse(y1 == y2, y1 - 0.25, y1)]
-coord_groups[, y2_adj := ifelse(y1 == y2, y2 + 0.25, y2)]
+
+# For one-record groups where y1=y2, adjust their y coordinates so that a segment gets drawn;
+# If not, no segment get drawn for such cases.
+# To force a segment add and subtract a small amount (try & error until seems ok). 
+# Prefer a smaller values since with bigger ones you risk to exaggerate the segments.
+coord_groups[, y1_adj := ifelse(y1 == y2, y1 - 0.1, y1)]
+coord_groups[, y2_adj := ifelse(y1 == y2, y2 + 0.1, y2)]
 
 # Labels need angle adjustment for cases between 90 and 270 dg
 coord_groups[, angle_adj := ifelse(angle %between% c(90, 180), 
@@ -170,7 +173,7 @@ The data table `coord_groups` will be used in `geom_segment` and `geom_text` bel
 # Annotate tree
 ## Annotate groups with segments and text
 [//]: # ===============================================================================================================
-```{r}
+```{r fig.align = 'center', fig.cap = 'Use segments and text to annotate groups (clades) with `ggtree`'}
 # Define variable to control x coordinate of segments & labels
 my_x <- max(tree_dt$x) + 0.05
 
@@ -223,10 +226,12 @@ ggsave(plot = tree_labeled, filename = "tree_labeled.png",
 ```
 
 [//]: # ===============================================================================================================
-## Add rectangles at tip labels 
+## Add a circular barplot effect 
 [//]: # ===============================================================================================================
 
-```{r}
+This is about more complex tree annotation, specifically using segments to create a circular barplot effect. The size of the bar is related to a value corresponding to each tip.
+
+```{r fig.align = 'center', fig.cap = 'More complex tree annotation - use segments to create a circular barplot effect'}
 # Define variable to control the x coordinates of bars (segments)
 my_factor <- 0.05
 x_base <- max(tree_dt$x) + abs(min(tree_dt$val, na.rm = TRUE))*my_factor + 0.02
@@ -234,9 +239,20 @@ x_base <- max(tree_dt$x) + abs(min(tree_dt$val, na.rm = TRUE))*my_factor + 0.02
 # Define variable to control the x coordinates of segments & labels
 my_x <- x_base + max(tree_dt$val, na.rm = TRUE)*my_factor + 0.05
 
+# Need to add a value (usually a small amount) to `ymax` 
+# to force a complete circle (otherwise a stripe of white remains).
+# This value needs to be just right:
+# -	 not too big because affects the visual which results in strange angles on labels;
+# -	 not too small because otherwise the remaining strip of white is not completely filled.
+# Is a matter of try and error until you get it right. 
+# Also, better to be biased towards smaller values since big value can lead to 
+# big displacements when drawing the tree.
+fill_in_value <- 0.1
+
 # Categorize values - binary
 tree_dt[, categ := ifelse(val <= 0, "neg", "pos")]
 
+# Plot the tree with circular barplot
 tree_bars <- 
   tree_plot +
   # Add a disc to plot bars on top of it
@@ -244,7 +260,8 @@ tree_bars <-
             aes(xmin = x_base + min(val, na.rm = TRUE)*my_factor,
                 ymin = 0,
                 xmax = x_base + max(val, na.rm = TRUE)*my_factor,
-                ymax = max(y)+1), # +1 to force complete circle (otherwise a stripe of white remains)
+                # Add also fill_in_value to `ymax` to force a complete circle
+                ymax = max(y) + fill_in_value), 
             color = NA, # set NA so to avoid coloring borders
             fill = "#deebf7", # or try "#8da0cb"
             alpha = 0.1) +
@@ -268,9 +285,10 @@ tree_bars <-
                aes(x = x_base, 
                    y = 0, 
                    xend = x_base, 
-                   yend = max(y)+1),
+                   # Add also fill_in_value to `yend` to force a complete circle
+                   yend = max(y) + fill_in_value),
                color = "gray50",
-               linetype = "dashed", 
+               # linetype = "dashed", 
                size = 0.25) +
   # Add line segments for each group.
   geom_segment(data = coord_groups,
@@ -307,7 +325,6 @@ tree_bars <-
     plot.margin = unit(c(t = 0.4, r = 2.6, b = -0.6, l = 0), "cm")
   )
 
-# Not sure why the labels got a weird angle though.
 tree_bars
 ```
 
