@@ -270,7 +270,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Digitize graphs with R - Import and edit graphs from PDF files</h1>
 <h4 class="author"><em>by: <a href="https://github.com/valentinitnelav">Valentin Stefan</a></em></h4>
-<h4 class="date"><em>last update: 2018-01-07</em></h4>
+<h4 class="date"><em>last update: 2018-01-17</em></h4>
 
 </div>
 
@@ -302,7 +302,7 @@ Graph to import in R (left) and a possible outcome (right).
 </div>
 <div id="read-in-the-postscript-file-and-create-a-picture-object" class="section level2">
 <h2><span class="header-section-number">2.2</span> Read in the PostScript file and create a “Picture” object</h2>
-<p>To avoid the ghostscript error ‘status 127’ (at least on Windows OS), the path to ghostscript <code>gswin64c.exe</code> executable file was given as suggested <a href="https://stackoverflow.com/questions/35256501/windows-rgrimport-ghostscript-error-status-127#42393056">here</a>. The PostScript file <code>graph_ps.ps</code> produced with Inkscape can be downloaded from <a href="https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/_posts/2018-01-06-Import-PostScript-grImport/extdata/graph_ps.ps">here</a>.</p>
+<p>To avoid the ghostscript error ‘status 127’ (at least on Windows OS), the path to ghostscript <code>gswin64c.exe</code> executable file was given as suggested <a href="https://stackoverflow.com/questions/35256501/windows-rgrimport-ghostscript-error-status-127#42393056">here</a>. The PostScript file <code>graph_ps.ps</code> produced with Inkscape can be downloaded from <a href="https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-06-Import-PostScript-grImport/extdata/graph_ps.ps">here</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set a working directory with `setwd()`.</span>
 <span class="kw">require</span>(grImport)
 <span class="co"># Avoid the ghostscript error 'status 127'.</span>
