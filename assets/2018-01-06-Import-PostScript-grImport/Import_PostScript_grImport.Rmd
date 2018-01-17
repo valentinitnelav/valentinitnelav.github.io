@@ -53,7 +53,7 @@ The main steps of importing PostsScipt in R are described in the [Importing vect
 [//]: # ===============================================================================================================
 
 To avoid the ghostscript error 'status 127' (at least on Windows OS), the path to ghostscript `gswin64c.exe` executable file was given as suggested [here](https://stackoverflow.com/questions/35256501/windows-rgrimport-ghostscript-error-status-127#42393056).
-The PostScript file `graph_ps.ps` produced with Inkscape can be downloaded from [here](https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/_posts/2018-01-06-Import-PostScript-grImport/extdata/graph_ps.ps). 
+The PostScript file `graph_ps.ps` produced with Inkscape can be downloaded from [here](https://raw.githubusercontent.com/valentinitnelav/valentinitnelav.github.io/master/assets/2018-01-06-Import-PostScript-grImport/extdata/graph_ps.ps). 
 
 ```{r echo = TRUE, message = FALSE}
 # Set a working directory with `setwd()`.
