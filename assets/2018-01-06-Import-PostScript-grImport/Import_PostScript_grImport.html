@@ -270,7 +270,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Digitize graphs with R - Import and edit graphs from PDF files</h1>
 <h4 class="author"><em>by: <a href="https://github.com/valentinitnelav">Valentin Stefan</a></em></h4>
-<h4 class="date"><em>last update: 2018-01-17</em></h4>
+<h4 class="date"><em>last update: 2018-01-27</em></h4>
 
 </div>
 
@@ -279,7 +279,8 @@ div.tocify {
 <h1><span class="header-section-number">1</span> What is this about?</h1>
 <p>We need to reproduce a graph from a book or article. For example, importing the graph on the left and being able to plot something like the graph on the right.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(jpeg)
-<span class="kw">library</span>(plotbiomes)
+<span class="co"># devtools::install_github(&quot;valentinitnelav/plotbiomes&quot;)</span>
+<span class="kw">library</span>(plotbiomes) <span class="co"># https://github.com/valentinitnelav/plotbiomes</span>
 
 grid<span class="op">::</span><span class="kw">grid.raster</span>(<span class="dt">image =</span> jpeg<span class="op">::</span><span class="kw">readJPEG</span>(<span class="dt">source =</span> <span class="st">&quot;extdata/orig_graph.jpg&quot;</span>))
 plotbiomes<span class="op">::</span><span class="kw">whittaker_base_plot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>

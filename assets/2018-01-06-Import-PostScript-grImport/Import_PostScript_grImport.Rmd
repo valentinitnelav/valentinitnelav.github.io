@@ -23,7 +23,8 @@ We need to reproduce a graph from a book or article. For example, importing the 
 ```{r echo = TRUE, message = FALSE, fig.show = 'hold', out.width = '45%', fig.align = 'center', fig.cap = 'Graph to import in R (left) and a possible outcome (right).'}
 
 library(jpeg)
-library(plotbiomes)
+# devtools::install_github("valentinitnelav/plotbiomes")
+library(plotbiomes) # https://github.com/valentinitnelav/plotbiomes
 
 grid::grid.raster(image = jpeg::readJPEG(source = "extdata/orig_graph.jpg"))
 plotbiomes::whittaker_base_plot() + theme_bw()
