@@ -9,7 +9,7 @@ GEM
       appraisal (~> 2.1.0)
       awesome_print (~> 1.6)
       json (~> 1.8)
-      nokogiri (~> 1.8.2)
+      nokogiri (>= 1.8)
       verbal_expressions (~> 0.1.5)
     appraisal (2.1.0)
       bundler
@@ -63,7 +63,7 @@ GEM
       rb-inotify (>= 0.9)
     mercenary (0.3.5)
     mini_portile2 (2.0.0)
-    nokogiri (1.8.2)
+    nokogiri (>= 1.8)
       mini_portile2 (~> 2.0.0.rc2)
     parslet (1.5.0)
       blankslate (~> 2.0)
