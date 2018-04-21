@@ -37,13 +37,16 @@ github:
     repo:         https://github.com/valentinitnelav/valentinitnelav.github.io
 
 # Algolia
+# Set as suggested at:
+# https://community.algolia.com/jekyll-algolia/getting-started.html 
+# see also https://community.algolia.com/jekyll-algolia/github-pages.html
 gems:
   - algoliasearch-jekyll
 
 algolia:
-  application_id: 'latency'
+  application_id: 'Q08ZIJ2AVI'
   index_name: 'jekyll'
-  read_only_api_key: '6be0576ff61c053d5f9a3225e2a90f76'
+  read_only_api_key: '9cc24315861229398e0f8cf9824051fa'
   excluded_files:
     - 404.html
     - index.html
