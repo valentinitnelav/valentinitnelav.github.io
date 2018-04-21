@@ -10,3 +10,11 @@ branches:
     - master
 rvm:
  - 2.4
+
+# Try to fix json (1.8.3) installation error; https://stackoverflow.com/a/32495789/5193830
+before_install:
+  - sudo apt-get install --yes libgmp-dev
+
+# Turn off email notifications entirely
+notifications:
+  email: false
