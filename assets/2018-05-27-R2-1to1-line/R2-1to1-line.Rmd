@@ -1,0 +1,156 @@
+---
+title: "Coefficient of determination for the 'one to one' line"
+author: "by: [Valentin Stefan](https://github.com/valentinitnelav) "
+date: "last update: `r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    fig_caption: true
+    number_sections: true
+    theme: "journal"
+    highlight: "tango"
+---
+
+Computing the coefficient of determination for the 1:1 line (intercept = 0 and slope = 1).
+
+
+# Make some data:
+
+```{r fig.show = 'hold', out.width = '60%', fig.align = 'center', fig.cap = 'Some random data'}
+set.seed(2018)
+y <- rnorm(n = 100, mean = 0, sd = 1)
+x <- rnorm(n = 100, mean = 0, sd = 1)
+plot(y ~ x)
+# Add least squares regression line
+abline(lm(y ~ x), col = "blue")
+```
+
+
+# The 1:1 line
+
+The [simple linear regression][slr] is of the form `y = a + b*x + e`. 
+For a 1:1 line the intercept a = 0 and the slope b = 1, so that `y = x + e`, where `e` are the errors (residuals/deviations from the 1:1 line).
+In R, a 1:1 line can be simply plotted with `abline(0,1)`.
+
+```{r fig.show = 'hold', out.width = '60%', fig.align = 'center', fig.cap = '1:1 line in red and least squares regression line in blue'}
+plot(x, y, xlim = c(-2, 3), ylim = c(-2, 3))
+# add grid
+abline(h = seq(-2, 3, 1),
+       v = seq(-2, 3, 1),
+       lty = "dashed",
+       col = "gray70")
+abline(lm(y ~ x), col = "blue") # least squares regression line
+abline(0, 1, col = "red", lwd = 2) # 1:1 line
+```
+
+[slr]: https://en.wikipedia.org/wiki/Simple_linear_regression
+
+Note that, for the 1:1 line, the errors (residuals) are simply the differences: `e = y - x`
+
+```{r fig.show = 'hold', out.width = '60%', fig.align = 'center', fig.cap = 'error (residuals/deviations from the 1:1 line)'}
+plot(x, y, xlim = c(-2, 3), ylim = c(-2, 3))
+abline(0, 1, col = "red") # 1:1 line
+segments(x0 = x, 
+         y0 = y,
+         x1 = x,
+         y1 = x, # y1 = y - e = y - y + x = x
+         col = "red",
+         lty = "dashed")
+```
+
+
+# The coefficient of determination
+
+The [coefficient of determination][r2] "is the proportion of the variance in the dependent variable that is predictable from the independent variable".
+
+Checking the [Wikipedia page][r2], we can see that "the most general definition of the coefficient of determination" is given in relation to the **unexplained variance** - the fraction of variance unexplained (FVU):
+
+R<sup>2</sup> = 1 - FVU = 1 - SS<sub>res</sub> &#8260; SS<sub>tot</sub>
+
+where FVU is the sum of squares of residuals (SS<sub>res</sub>) divided by the total sum of squares (SS<sub>tot</sub>)
+
+SS<sub>res</sub> = &sum;(y<sub>i</sub> - y&#770;<sub>i</sub>)<sup>2</sup> = &sum;e<sub>i</sub><sup>2</sup>
+
+SS<sub>tot</sub> = &sum;(y<sub>i</sub> - y&#772;<sub>i</sub>)<sup>2</sup>
+
+[r2]: https://en.wikipedia.org/wiki/Coefficient_of_determination 
+
+As already pointed above, for the 1:1 line, the errors (residuals) are the differences: `e = y - x`.
+Therefore, SS<sub>res</sub> can be written as:
+
+SS<sub>res</sub> = &sum;e<sub>i</sub><sup>2</sup> =  &sum;(y<sub>i</sub> - x<sub>i</sub>)<sup>2</sup>
+
+The R implementation for the 1:1 line is:
+
+```{r}
+SS_res <- sum((y - x) ^ 2)
+SS_tot <- sum((y - mean(y)) ^ 2)
+1 - SS_res / SS_tot
+```
+
+Here we get a value outside of the usual range 0 to 1 because the 1:1 line fits the data worse than just the y&#772; horizontal line, that is, the line of intercept = y&#772; and slope = 0, for which R<sup>2</sup> = 0 because y&#772;<sub>i</sub> = y&#770;<sub>i</sub>, which makes SS<sub>res</sub> = SS<sub>tot</sub>.
+
+
+# Extra thoughts
+
+
+## Flipping axis
+
+We can put the above in a simple R function:
+
+```{r}
+r2_1to1 <- function(xx, yy) {
+  SS_res <- sum((yy - xx) ^ 2)
+  SS_tot <- sum((yy - mean(yy)) ^ 2)
+  r2 <- 1 - SS_res / SS_tot
+  return(r2)
+}
+r2_1to1(x, y)
+r2_1to1(y, x)
+```
+
+Note that, if we inverse x and y we get a different coefficient of determination (R squared) for the 1:1 line. However, if fitting the usual simple linear regression (no constraints on intercept or slope), then we get the same coefficient of determination when we switch x with y.
+
+```{r}
+# R squared doesn't change in case of least square line when switching x with y
+summary(lm(y ~ x))$r.squared
+summary(lm(x ~ y))$r.squared
+all.equal(summary(lm(y ~ x))$r.squared, 
+          summary(lm(x ~ y))$r.squared)
+```
+
+
+## Another way - `lm(y ~ 0 + offset(x))`
+
+Another way of getting to the R squared is to fit a linear model with a fixed slope as explained [here](http://r.789695.n4.nabble.com/how-fit-linear-model-with-fixed-slope-td3007271.html):
+
+```{r}
+lm_1to1 <- lm(y ~ 0 + offset(1*x)) 
+# 1* - indicates that the slope is constrained to 1; can simply be offset(x)
+# 0  - indicates that there is no intercept (-1 has the same effect)
+# Note, if you need a certain value for the intercept, check https://stackoverflow.com/a/7333292/5193830
+summary(lm_1to1) # is ok to see "No Coefficients" since they are constrained to 0 and 1
+summary(lm_1to1)$r.squared # this is not valid!
+
+# Another function to compute R squared
+r2 <- function(yy, model) {
+  SS_res <- sum(model$residuals ^ 2) # residuals are taken from the model
+  SS_tot <- sum((yy - mean(yy)) ^ 2)
+  r2 <- 1 - SS_res / SS_tot
+  return(r2)
+}
+
+# This tests that function r2() is working properly
+all.equal(summary(lm(y ~ x))$r.squared,
+          r2(y, lm(y ~ x)))
+
+# This is R squared for the 1:1 fit. 
+# Result identical with what we did previously using r2_1to1() function.
+r2(y, lm_1to1)
+
+all.equal(r2(y, lm_1to1),
+          r2_1to1(x, y))
+```
