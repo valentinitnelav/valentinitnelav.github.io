@@ -1,5 +1,5 @@
 ---
-title: "Visualization and annotation of a phylogenetic tree with `ggtree` package"
+title: "Visualization and annotation of a phylogenetic tree with the `ggtree` package"
 author: "by: [Valentin Stefan](https://github.com/valentinitnelav) "
 date: "last update: `r Sys.Date()`"
 output:
@@ -13,15 +13,15 @@ output:
     theme: "journal"
     highlight: "tango"
 ---
+**This post is part of my R notes series**
 
-I use in this example the [ggtree]( https://bioconductor.org/packages/release/bioc/html/ggtree.html) R package, which is designed for "visualization and annotation of phylogenetic trees with their covariates and other associated data".
+I use in this example the [ggtree](https://bioconductor.org/packages/release/bioc/html/ggtree.html) R package, which is designed for "visualization and annotation of phylogenetic trees with their covariates and other associated data".
 
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 # Generate sample data
-[//]: # ===============================================================================================================
-
+[//]: # =======================================================================
 **Load R packages**
-```{r message = FALSE}
+```{r message = FALSE, warning = FALSE}
 # Note: intsall `ggtree` from bioconductor
 # source("https://bioconductor.org/biocLite.R")
 # biocLite("ggtree")
@@ -31,6 +31,10 @@ library(data.table)
 library(RColorBrewer)
 ```
 
+Print version information about R, the OS and attached or loaded packages.
+```{r}
+sessionInfo()
+```
 
 **Generate a random tree**
 ```{r fig.show = 'hold', out.width = '45%', fig.align = 'center', fig.cap = 'Simple tree plots using plot.phylo() from ape package.'}
@@ -56,9 +60,9 @@ my_info[, ':=' (groupA = paste0("group_A", groupA),
 my_info
 ```
 
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 # Prepare tree & data for plotting
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 
 **Taxa classification with `ggtree::groupOTU`**
 
@@ -84,9 +88,9 @@ attributes(tree_grA)$group <- factor(x = attributes(tree_grA)$group,
                                      levels = c("group_A3", "group_A2", "group_A1"))
 ```
 
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 # Build a simple tree view with `ggtree`
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 
 **Experiment with color**
 ```{r fig.show = 'hold', out.width = '45%', fig.align = 'center', fig.cap = 'Experiment with color'}
@@ -112,9 +116,9 @@ tree_plot <-
 tree_plot + geom_tiplab(size = 4, aes(angle = angle))
 ```
 
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 # Prepare annotation data
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 
 ## Join annotation data with the tree view
 ```{r}
@@ -169,10 +173,10 @@ coord_groups
 ```
 The data table `coord_groups` will be used in `geom_segment` and `geom_text` below.
 
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 # Annotate tree
 ## Annotate groups with segments and text
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 ```{r fig.align = 'center', fig.cap = 'Use segments and text to annotate groups (clades) with `ggtree`'}
 # Define variable to control x coordinate of segments & labels
 my_x <- max(tree_dt$x) + 0.05
@@ -225,9 +229,9 @@ ggsave(plot = tree_labeled, filename = "tree_labeled.png",
        width = 13, height = 11.5, units = "cm", dpi = 300)
 ```
 
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 ## Add a circular barplot effect 
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 
 This is about more complex tree annotation, specifically using segments to create a circular barplot effect. The size of the bar is related to a value corresponding to each tip.
 
@@ -335,9 +339,9 @@ ggsave(plot = tree_bars, filename = "tree_labeled_bars.png",
        width = 13, height = 11.5, units = "cm", dpi = 300)
 ```
 
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 # References
-[//]: # ===============================================================================================================
+[//]: # =======================================================================
 **ggtree** package created by [Guangchuang Yu](https://guangchuangyu.github.io/) is well documented:
 
 https://bioconductor.org/packages/release/bioc/html/ggtree.html
