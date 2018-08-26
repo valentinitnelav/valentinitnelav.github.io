@@ -1,0 +1,173 @@
+---
+title: "An interactive PCA biplot with `ggbiplot` and `plotly` R packages"
+author: "by: [Valentin Stefan](https://github.com/valentinitnelav) "
+date: "last update: `r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    fig_caption: true
+    number_sections: true
+    theme: "journal"
+    highlight: "tango"
+    code_folding: "show"
+---
+**This post is part of my R notes series**
+
+[//]: # =======================================================================
+# What is this about?
+[//]: # =======================================================================
+
+Take a usual PCA biplot and make it interactive via the functionality of R packages [ggbiplot](https://github.com/vqv/ggbiplot) and [plotly](https://cran.r-project.org/web/packages/plotly/index.html).
+
+These notes build on the PCA example from [An Introduction to Statistical Learning - with Applications in R (James et al. 2013)][James2013], using as example the PCA biplot from *FIGURE 10.1. The first two principal components for the USArrests data.*
+
+[//]: # =======================================================================
+# Prepare R session
+[//]: # =======================================================================
+
+Load R packages:
+```{r message = FALSE, warning = FALSE}
+# Note: intsall `ggtree` from GitHub; 
+# At the time of writing these notes, ggbiplot was not on CRAN.
+# devtools::install_github("vqv/ggbiplot")
+library(ggbiplot)
+library(plotly)
+```
+
+Print version information about R, the OS and attached or loaded packages.
+```{r}
+sessionInfo()
+```
+
+[//]: # =======================================================================
+# Run PCA
+[//]: # =======================================================================
+
+Run principal components analysis (PCA) and the usual biplot.
+```{r fig.align = 'center', fig.cap = "The usual PCA `biplot`"}
+pr.out <- prcomp(USArrests, scale = TRUE)
+biplot(pr.out, scale = 0)
+```
+
+[//]: # =======================================================================
+# Examples with `ggbiplot` & `ggplotly`
+[//]: # =======================================================================
+
+## Minimal case
+
+First steps with `ggbiplot` & `ggplotly`.
+```{r fig.align = 'center', fig.cap = "A simple PCA biplot with `ggbiplot`"}
+simple_plot <- ggbiplot(pcobj = pr.out, scale = 0)
+simple_plot
+```
+
+```{r fig.align = 'center', fig.cap = "A simple interactive PCA biplot with `plotly` (hover the mouse pointer)"}
+ggplotly(simple_plot)
+```
+
+
+## Add color & size
+
+Example of mapping one of the variables (features) into color and size.
+```{r fig.align = 'center', fig.cap = "Map urban population feature into color and size"}
+p <- ggbiplot(pcobj = pr.out, 
+              scale = 0,
+              alpha = 0)
+p1 <- p + geom_point(aes(color = USArrests$UrbanPop,
+                         size  = USArrests$UrbanPop))
+p1
+```
+
+Take the draft plot from above and make it interactive. 
+```{r fig.align = 'center', fig.cap = "Interactive PCA biplot"}
+ggplotly(p1)
+```
+
+The two aesthetics will need to be combined in the legend. While this is possible in `ggplot` with using the `guides` function, it will not trickle down to `ggplotly` output. [This SO link](https://stackoverflow.com/q/47383244/5193830) could be interesting to investigate.
+```{r fig.align = 'center'}
+# Combine size and color in legend;
+# see https://stackoverflow.com/a/32652899/5193830
+p2 <- p1 +
+  guides(color = guide_legend(), 
+         size = guide_legend())
+p2
+# Couldn't find a way yet to make it work with plotly :/
+ggplotly(p2)
+```
+
+If you need to adjust the limits and breaks for the bubbles, use the `scale_` functions. The changes in the legend will also not trickle down to the `ggplotly` output.
+
+```{r fig.align = 'center'}
+# Combine size and color in legend, adjust the limits and breaks;
+# see https://stackoverflow.com/a/32652899/5193830
+p2 <- p1 +
+  scale_color_continuous("Urban pop %", 
+                         limits = c(30, 100), 
+                         breaks = seq(30, 100, by = 10)) +
+  scale_size_continuous("Urban pop %",
+                        limits = c(30, 100), 
+                        breaks = seq(30, 100, by = 10)) +
+  guides(color = guide_legend(), 
+         size = guide_legend())
+p2
+# Legend also doesn't pass to plotly :(
+ggplotly(p2)
+```
+
+## Custom hover text
+
+Simple example, with adding a single new field in the `plotly` popup.
+```{r fig.align = 'center', fig.cap = "Interactive PCA biplot - add a new field in the popup (hover the mouse pointer)"}
+p3 <- p + geom_point(aes(color = USArrests$UrbanPop,
+                         size  = USArrests$UrbanPop,
+                         # Text aesthetic will be ignored in `ggplot`,
+                         # but will be used for mouse hovering in `ggplotly`.
+                         text = paste("Murder:", USArrests$Murder)))
+ggplotly(p3)
+```
+
+Add more fields in the `plotly` popup. This was inspired from [a plotly example](https://plot.ly/r/text-and-annotations/#custom-hover-text).
+```{r fig.align = 'center', fig.cap = "Interactive PCA biplot - use the `</br>` trick to add several fields in the popup (hover the mouse pointer)"}
+p4 <- p + geom_point(aes(color = USArrests$UrbanPop,
+                         size  = USArrests$UrbanPop,
+                         # Text aesthetic will be ignored in `ggplot`,
+                         # but will be used for mouse hovering in `ggplotly`.
+                         text = paste("Murder:", USArrests$Murder,
+                                      '</br> Assault:', USArrests$Assault,
+                                      '</br> UrbanPop:', USArrests$UrbanPop,
+                                      '</br> Rape:', USArrests$Rape)))
+ggplotly(p4)
+```
+
+A way to automatically add all feature values from the data as fields in the plotly popup.
+```{r fig.align = 'center', fig.cap = "Interactive PCA biplot - add all feature values as fields in the popup (hover the mouse pointer)"}
+features <- paste0(c('State', names(USArrests)), ": ")
+my_labels <- apply(X = cbind(rownames(USArrests), USArrests), 
+                   MARGIN = 1, 
+                   FUN = function(row) paste(paste(features, row), 
+                                             collapse = "</br>"))
+p5 <- p + geom_point(aes(color = USArrests$UrbanPop,
+                         size  = USArrests$UrbanPop,
+                         # Text aesthetic will be ignored in `ggplot`,
+                         # but will be used for mouse hovering in `ggplotly`.
+                         text = my_labels))
+ggplotly(p5)
+```
+
+
+[//]: # =======================================================================
+# References
+[//]: # =======================================================================
+
+Carson Sievert (2018) plotly for R. [link](https://plotly-book.cpsievert.me)
+
+James, G., Witten, D., Hastie, T. and Tibshirani, R., 2013. An introduction to statistical learning (Vol. 112). New York: Springer. [link][James2013]
+
+Vincent Q. Vu (2011). ggbiplot: A ggplot2 based biplot. R package version 0.55 [link](http://github.com/vqv/ggbiplot)
+
+
+[//]: # LINKS =================================================================
+[James2013]: https://www-bcf.usc.edu/~gareth/ISL/index.html
