@@ -1,0 +1,189 @@
+---
+title: "Pacific centered map and Voronoi tessellation"
+author: "by: [Valentin Stefan](https://github.com/valentinitnelav) "
+date: "last update: `r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    fig_caption: true
+    number_sections: true
+    theme: "journal"
+    highlight: "tango"
+---
+
+# Summary
+
+The main steps for this map consist in getting country polygons data, cropping and shifting the geographical coordinates for a Pacific view, labeling some entities (here some small landmasses in Pacific) and adding boundaries between them using Voronoi tessellation method.
+
+The Rmarkdown file used to generate this html report can be found [here](https://github.com/valentinitnelav/valentinitnelav.github.io/tree/master/assets/2020-05-15-pacific-map-voronoi/pacific-map-voronoi.Rmd).
+
+# The R environment {.tabset .tabset-fade}
+
+## Load packages
+
+```{r load-packages, message=FALSE, warning=FALSE}
+library(rgeos)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+```
+
+## R Session
+
+```{r r-session-info}
+sessionInfo()
+```
+
+## Package versions
+
+If you want to install a snapshot of the packages as they existed on CRAN at the date of the creation of this document, then can use the [checkpoint][cp] package. The code below should guarantee the same versions of the packages as they existed on CRAN at the specified point in time.
+
+[cp]: https://cran.r-project.org/web/packages/checkpoint/index.html
+
+```{r checkpoint, eval=FALSE}
+library(checkpoint) # checkpoint, version 0.4.9
+checkpoint(snapshotDate = "2020-05-16")
+# Check that library path is set to ~/.checkpoint/2020-05-16/ ...
+.libPaths()
+grepl(pattern = "\\.checkpoint/2020-05-16/", x = .libPaths()[1]) # should be TRUE
+```
+
+The `checkpoint` functionality consists on scanning for package names in the scripts and text files of your project folder and its subfolder. It scans all R code (.R, .Rmd, and .Rpres files) for `library()` and `require()` statements. Then creates a local library into which it installs a copy of the packages required in the project as they existed on CRAN at the specified snapshot date. See details with `?checkpoint` after you load `library(checkpoint)`, or [here](https://cran.r-project.org/web/packages/checkpoint/vignettes/checkpoint.html)
+
+**Warning** - Installing older versions of the packages in the checkpoint local library, may take up some hundreds of MG in space.
+
+# Data preparation
+
+## Set ggplot2 theme
+
+```{r, ggplot2-theme}
+theme_set(
+  theme_bw() +
+    theme(panel.background = element_rect(fill = "azure"),
+          panel.grid.major = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_text(size = 8))
+)
+```
+
+## Natural Earth data
+
+Get world spatial polygons and focus on the Pacific area.
+```{r, world-data}
+world <- rnaturalearth::ne_countries(scale = 'medium', returnclass = "sp")
+box_cut <- bbox2SP(n = 90, s = -90, w = -70, e = 120, proj4string = world@proj4string)
+world_crop <- gDifference(world, box_cut)
+```
+
+The main steps consist in cutting out the read area and binding the two green ones with shifting the geographical coordinates for a Pacific view as illustrated below:
+```{r crop-explanation, echo=FALSE}
+box_left <- bbox2SP(n = 90, s = -90, w = -180, e = -70, proj4string = world@proj4string)
+box_right <- bbox2SP(n = 90, s = -90, w = 120, e = 180, proj4string = world@proj4string)
+
+plot(world)
+plot(box_cut, col = rgb(red = 1, green = 0, blue = 0, alpha = 0.5), add = TRUE)
+plot(box_left, col = rgb(red = 0, green = 1, blue = 0, alpha = 0.5), add = TRUE)
+plot(box_right, col = rgb(red = 0, green = 1, blue = 0, alpha = 0.5), add = TRUE)
+
+plot(world_crop)
+plot(box_left, col = rgb(red = 0, green = 1, blue = 0, alpha = 0.5), add = TRUE)
+plot(box_right, col = rgb(red = 0, green = 1, blue = 0, alpha = 0.5), add = TRUE)
+
+pacific <- world_crop %>% 
+  st_as_sf() %>% 
+  st_shift_longitude()
+plot(pacific)
+```
+
+Next we will further crop the results from above to a focus area on the Pacific depicted in green below:
+```{r, crop-2nd, echo=FALSE}
+plot(pacific)
+bbox2SP(n = 30, s = -50,
+        w = st_bbox(pacific)[["xmin"]],
+        e = st_bbox(pacific)[["xmax"]],
+        proj4string = world@proj4string) %>% 
+  plot(col = rgb(red = 0, green = 1, blue = 0, alpha = 0.5), add = TRUE)
+```
+
+So, we take the world polygons obtained by cutting out the central box, shift the geographical coordinates for a Pacific view and crop to focus on a more narrow area:
+```{r, pacific_crop}
+pacific_crop <- world_crop %>% 
+  st_as_sf() %>% 
+  st_shift_longitude() %>% 
+  st_crop(c(xmin = st_bbox(.)[["xmin"]],
+            xmax = st_bbox(.)[["xmax"]],
+            ymin = -50,
+            ymax = 30))
+
+ggplot() +
+  geom_sf(data = pacific_crop)
+```
+
+For the labeling exercise we can use the `rnaturalearthdata::tiny_countries50` dataset. This set of polygons also need the be shifted and cropped.
+```{r, tiny-countries}
+tiny_countries <- rnaturalearthdata::tiny_countries50 %>% 
+  st_as_sf() %>% 
+  st_shift_longitude() %>% 
+  st_crop(c(xmin = 120, xmax = 250, ymin = -50, ymax = 30)) %>% 
+  # Also adds the coordinates to be used for labeling with geom_text_repel
+  bind_cols(st_coordinates(.) %>% as.data.frame())
+
+ggplot() +
+  geom_sf(data = pacific_crop) +
+  geom_sf(data = tiny_countries, size = 2, color = "red")
+```
+
+## Voronoi tessellation
+
+This will create boundaries between the land masses we decided to label. Cropping is needed here, because otherwise we get very long segments at the edges of the Voronoi grid.
+
+```{r, voronoi}
+voronoi_lines <- tiny_countries %>%
+  st_as_sf() %>% 
+  st_union() %>% # this seems to be needed, otherwise st_voronoi will fail
+  st_voronoi(bOnlyEdges = TRUE) %>% 
+  st_crop(st_bbox(pacific_crop))
+```
+Note - ignore the warnings. Things do not have to be perfect here, we use the Voronoi grid for visual effects only and you will see that it gets the job done.
+
+# The map
+
+Put all together in a map
+
+```{r, make-map}
+pacific_map_voronoi <- ggplot() +
+  geom_sf(data = voronoi_lines, color = gray(level = 0.6), size = 0.5) +
+  geom_sf(data = pacific_crop, size = 0.25) +
+  geom_sf(data = tiny_countries, color = "black", size = 0.5) +
+  # Here, coord_sf ensures that all layers are displayed within the same limits,
+  # the extremes being dictated by the minimum and maximum of pacific_crop. Also
+  # the expanding factor is turned off so that the content of the map can touch
+  # the axes:
+  coord_sf(xlim = c(120, 290), expand = FALSE) +
+  geom_text_repel(data = tiny_countries,
+                  aes(x = X, y = Y, label = name),
+                  size = 2.5,
+                  fontface = "bold",
+                  segment.size = 0.25,
+                  box.padding = 0.4,
+                  min.segment.length = 0,
+                  seed = 2020-5-16)
+pacific_map_voronoi
+```
+
+If you need to further save the map as a png file, you can, of course, use `ggsave()`:
+```{r}
+ggsave(filename = "pacific_map_voronoi.png",
+       plot = pacific_map_voronoi,
+       width = 15,
+       height = 10,
+       units = "cm",
+       dpi = 300)
+```
+
