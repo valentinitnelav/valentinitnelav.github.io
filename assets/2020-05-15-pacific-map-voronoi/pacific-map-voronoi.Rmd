@@ -16,9 +16,9 @@ output:
 
 # Summary
 
-The main steps for this map consist in getting country polygons data, cropping and shifting the geographical coordinates for a Pacific view, labeling some entities (here some small landmasses in Pacific) and adding boundaries between them using Voronoi tessellation method.
+The main steps for this map consist in getting country polygons data, cropping and shifting the geographical coordinates for a Pacific view, labeling some entities (here some small landmasses in Pacific) and generating boundaries between them using the Voronoi tessellation method.
 
-The Rmarkdown file used to generate this html report can be found [here](https://github.com/valentinitnelav/valentinitnelav.github.io/tree/master/assets/2020-05-15-pacific-map-voronoi/pacific-map-voronoi.Rmd).
+The Rmarkdown file with the R code used to generate this html report can be found [here](https://github.com/valentinitnelav/valentinitnelav.github.io/tree/master/assets/2020-05-15-pacific-map-voronoi/pacific-map-voronoi.Rmd).
 
 # The R environment {.tabset .tabset-fade}
 
@@ -62,6 +62,7 @@ The `checkpoint` functionality consists on scanning for package names in the scr
 
 ## Set ggplot2 theme
 
+This is more convenient, because once set here, is valid for any generated ggplot in this report. Feel free to adapt and change your theme preferences.
 ```{r, ggplot2-theme}
 theme_set(
   theme_bw() +
@@ -74,14 +75,14 @@ theme_set(
 
 ## Natural Earth data
 
-Get world spatial polygons and focus on the Pacific area.
+Get world spatial polygons from the rnaturalearth package and we'll focus on the Pacific area.
 ```{r, world-data}
 world <- rnaturalearth::ne_countries(scale = 'medium', returnclass = "sp")
 box_cut <- bbox2SP(n = 90, s = -90, w = -70, e = 120, proj4string = world@proj4string)
 world_crop <- gDifference(world, box_cut)
 ```
 
-The main steps consist in cutting out the read area and binding the two green ones with shifting the geographical coordinates for a Pacific view as illustrated below:
+The main steps consist in cutting out the red area and binding the two green ones with shifting the geographical coordinates for a Pacific view as illustrated below:
 ```{r crop-explanation, echo=FALSE}
 box_left <- bbox2SP(n = 90, s = -90, w = -180, e = -70, proj4string = world@proj4string)
 box_right <- bbox2SP(n = 90, s = -90, w = 120, e = 180, proj4string = world@proj4string)
@@ -111,10 +112,10 @@ bbox2SP(n = 30, s = -50,
   plot(col = rgb(red = 0, green = 1, blue = 0, alpha = 0.5), add = TRUE)
 ```
 
-So, we take the world polygons obtained by cutting out the central box, shift the geographical coordinates for a Pacific view and crop to focus on a more narrow area:
+So, we take the world polygons obtained by cutting out the central red box, shift the geographical coordinates for a Pacific view and crop to focus on a more narrow area:
 ```{r, pacific_crop}
 pacific_crop <- world_crop %>% 
-  st_as_sf() %>% 
+  st_as_sf() %>% # change from sp to sf object/class
   st_shift_longitude() %>% 
   st_crop(c(xmin = st_bbox(.)[["xmin"]],
             xmax = st_bbox(.)[["xmax"]],
@@ -125,10 +126,10 @@ ggplot() +
   geom_sf(data = pacific_crop)
 ```
 
-For the labeling exercise we can use the `rnaturalearthdata::tiny_countries50` dataset. This set of polygons also need the be shifted and cropped.
+For the labeling exercise we can use the `rnaturalearthdata::tiny_countries50` dataset. This set of spatial points need the be shifted and cropped also.
 ```{r, tiny-countries}
 tiny_countries <- rnaturalearthdata::tiny_countries50 %>% 
-  st_as_sf() %>% 
+  st_as_sf() %>%
   st_shift_longitude() %>% 
   st_crop(c(xmin = 120, xmax = 250, ymin = -50, ymax = 30)) %>% 
   # Also adds the coordinates to be used for labeling with geom_text_repel
@@ -143,6 +144,8 @@ ggplot() +
 
 This will create boundaries between the land masses we decided to label. Cropping is needed here, because otherwise we get very long segments at the edges of the Voronoi grid.
 
+Voronoi tessellation might not be your cup of tea, since the generated borders are not perfect, but they are a strong simplification of reality. You may prefer generating buffers around your locations, though there you might have problems with overlapping polygons.
+
 ```{r, voronoi}
 voronoi_lines <- tiny_countries %>%
   st_as_sf() %>% 
@@ -150,11 +153,11 @@ voronoi_lines <- tiny_countries %>%
   st_voronoi(bOnlyEdges = TRUE) %>% 
   st_crop(st_bbox(pacific_crop))
 ```
-Note - ignore the warnings. Things do not have to be perfect here, we use the Voronoi grid for visual effects only and you will see that it gets the job done.
+Note - ignore the warnings. Things do not have to be perfect here, we use the Voronoi grid for visual effects only.
 
 # The map
 
-Put all together in a map
+Put all layers together in a map
 
 ```{r, make-map}
 pacific_map_voronoi <- ggplot() +
