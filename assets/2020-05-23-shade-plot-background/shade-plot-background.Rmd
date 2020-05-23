@@ -1,0 +1,175 @@
+---
+title: "Use geom_rect or geom_polygon from ggplot2 for shading effects"
+author: "by: Valentin Stefan"
+date: "last update: `r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    fig_caption: true
+    number_sections: true
+    theme: "journal"
+    highlight: "tango"
+---
+
+**For problems with the code, please open an issue on GitHub** [here][issues].
+
+[issues]: https://github.com/valentinitnelav/valentinitnelav.github.io/issues
+
+
+**Contact details:** [GitHub][git] / [seethedatablog][blog] / [rpubs][rpb] / [LinkedIn][lnkd] / [Twitter][twt] / [Instagram][insta]
+
+[git]: https://github.com/valentinitnelav
+[blog]: https://seethedatablog.wordpress.com
+[rpb]: https://rpubs.com/valentin
+[lnkd]: https://www.linkedin.com/in/valentin-stefan
+[twt]: https://twitter.com/VaS529
+[insta]: https://www.instagram.com/paeope/?hl=en
+
+
+The Rmarkdown file with the R code used to generate this html report is stored on GitHub  [here][rmd].
+
+[rmd]: https://github.com/valentinitnelav/valentinitnelav.github.io/tree/master/assets/2020-05-23-shade-plot-background/shade-plot-background.Rmd
+
+# Summary
+
+In this post I build two graph examples where my colleagues desired some shading effects in order to emphasize certain data. For this task, I used `geom_rect()` and `geom_polygon()` from the ggplot2 package. While `geom_rect()` draws rectangles (as its name suggests), with `geom_polygon()` one can draw rectangles and more, allowing for more flexibility. `geom_polygon()` is a bit more complex to use.
+
+# The R environment {.tabset .tabset-fade}
+
+## Load packages
+
+```{r load-packages, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+## R Session
+
+```{r r-session-info}
+sessionInfo()
+```
+
+## Package versions
+
+If you want to install a snapshot of the packages as they existed on CRAN at the date of the creation of this document, then can use the [checkpoint][cp] package. The code below should guarantee the same versions of the packages as they existed on CRAN at the specified point in time. 
+
+To be sure that things work correctly and you do not install unnecessary extra packages, use RStudio, creating a project `.Rproj` file for this tutorial and save it in a separate clean folder. Here you will store either the RMarkdown [file][rmd] that generated this report or an R file with the code that you copy and paste from this html report. Then execute the line of code from below:
+
+[cp]: https://cran.r-project.org/web/packages/checkpoint/index.html
+
+```{r checkpoint, eval=FALSE}
+library(checkpoint) # checkpoint, version 0.4.9
+checkpoint(snapshotDate = "2020-05-23")
+# Check that library path is set to ~/.checkpoint/2020-05-23/ ...
+.libPaths()
+grepl(pattern = "\\.checkpoint/2020-05-23/", x = .libPaths()[1]) # should be TRUE
+```
+
+The `checkpoint` functionality consists on scanning for package names in the scripts and text files of your project folder and its subfolder. It scans all R code (.R, .Rmd, and .Rpres files) for `library()` and `require()` statements. Then creates a local library into which it installs a copy of the packages required in the project as they existed on CRAN at the specified snapshot date. See details with `?checkpoint` after you load `library(checkpoint)`, or [here](https://cran.r-project.org/web/packages/checkpoint/vignettes/checkpoint.html)
+
+**Warning** - Installing older versions of packages in the checkpoint local library, may take up some hundreds of MG.
+
+# Set ggplot2 theme
+
+This is more convenient, because once set here, is valid for any generated ggplot in this report. Feel free to adapt and change your theme preferences.
+```{r, ggplot2-theme}
+theme_set(
+  theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          axis.text = element_text(size = 8))
+)
+```
+
+# geom_rect
+
+I'll use the `mtcars` dataset for the next examples. Assume we want to produce a scatterplot of mpg explained by hp, two variables in the data frame mtcars. Then we want to draw a horizontal line that would split the cloud of points into two parts, with the intend to shade differently the area above and under the line. This line can be some sort of threshold in your data.
+
+I think the most important aspect here is to realize that `geom_rect` uses the locations of the four corners (xmin, xmax, ymin and ymax) to draw rectagles.
+
+Here is how you could write the code:
+
+```{r, geom_rect}
+y_lim <- 20 # a custom threshold for the horizontal line
+
+ggplot() +
+  geom_point(data = mtcars,
+             aes(x = hp, y = mpg)) +
+  geom_hline(yintercept = y_lim) +
+  # Shade area under y_lim
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = y_lim),
+            alpha = 1/5,
+            fill = "blue") +
+  # Shade area above y_lim
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = y_lim, ymax = Inf),
+            alpha = 1/5,
+            fill = "red")
+```
+
+
+# geom_polygon
+
+With `geom_polygon` we can shade more complex areas than just rectangles :)
+
+Let's assume you fit some model to your data and then want to shade some area under or above the fitting line. You build the model, make the predictions and use these values for plotting.
+
+Fit the model and build a data frame with coordinates for the trend line.
+```{r, model-and-trend-line}
+model <- lm(mpg ~ log(hp), data = mtcars) # some model
+
+# Get the predictions for plotting. Here, df_line, is a data frame with new
+# coordinates that will be used for plotting the trend line and further for
+# building the polygons for shading.
+min_x <- min(mtcars$hp)
+max_x <- max(mtcars$hp)
+df_line <- data.frame(hp = seq(from = min_x, to = max_x, by = 1))
+df_line$mpg <- predict(model, newdata = df_line)
+```
+
+This is the scatterplot with the trendline corresponding to the model we just computed above.
+```{r, trend-line-only}
+p <- ggplot() +
+  geom_point(data = mtcars,
+             aes(x = hp, y = mpg)) +
+  geom_line(data = df_line,
+            aes(x = hp, y = mpg))
+p
+```
+
+What is important here is that we need to add new coordinates to the data corresponding to the trendline that we just constructed above.
+```{r, prepare-polygon-data}
+df_poly_under <- df_line %>%
+  tibble::add_row(hp = c(max_x, min_x),
+                  mpg = c(-Inf, -Inf))
+
+df_poly_above <- df_line %>%
+  tibble::add_row(hp = c(max_x, min_x),
+                  mpg = c(Inf, Inf))
+```
+
+This is the scatterplot with the trendline and shaded areas above and below.
+```{r}
+p +
+  geom_polygon(data = df_poly_under,
+               aes(x = hp, y = mpg),
+               fill = "blue",
+               alpha = 1/5) +
+  geom_polygon(data = df_poly_above,
+               aes(x = hp, y = mpg),
+               fill = "red",
+               alpha = 1/5)
+```
+
+
+You can further save the graph as png file with `ggsave()`:
+```{r}
+ggsave(filename = "shade-plot-background.png",
+       plot = last_plot(),
+       width = 10,
+       height = 6,
+       units = "cm",
+       dpi = 300)
+```
+
