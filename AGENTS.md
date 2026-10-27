@@ -11,6 +11,8 @@ The owner uses it for job applications (academia and industry), so the tone stay
 - Keep it plain HTML + `css/site.css`. Do not add a Gemfile, `package.json`, a static-site generator,
   web fonts from third-party servers (Google Fonts), analytics or other trackers. The old Jekyll setup
   was removed because its unused dependencies caused years of Dependabot alerts.
+- The repo's code is AGPL-3.0 (`LICENSE`, since October 2026; MIT before). Keep the footer license line
+  in `index.html` and `gallery/index.html` in sync with it.
 - Keep `.nojekyll`. Without it GitHub runs Jekyll and turns stray `.md` files into pages.
 - Keep these paths stable, because other sites link to them: everything under `assets/` and `gallery/`,
   and the redirect stubs in `2018/`, `2019/`, `2020/`, `about/`, `license_snippets/`.

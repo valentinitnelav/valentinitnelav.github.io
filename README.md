@@ -11,7 +11,7 @@ there is nothing to update and no security alerts to chase.
 | Path | What it is |
 | --- | --- |
 | `index.html` | Landing page |
-| `gallery/index.html` | R notes & graph gallery page; the `.R` scripts and `.png` thumbnails sit next to it |
+| `gallery/index.html` | Scripts & graph gallery page; the `.R` scripts and `.png` thumbnails sit next to it |
 | `assets/` | Self-contained R Markdown tutorials (HTML + `.Rmd` source), linked from the gallery page |
 | `css/site.css` | The only stylesheet (light and dark mode) |
 | `img/` | Images used by the pages |
@@ -33,4 +33,9 @@ site within a minute or two.
 
 ## License
 
-Code (R scripts, R Markdown, HTML/CSS) is under the MIT license, see [LICENSE.md](LICENSE.md).
+The code in this repository (R scripts, R Markdown files, HTML and CSS) is licensed under the
+[GNU Affero General Public License v3.0](LICENSE) (AGPL-3.0). Until October 2026 it was under the MIT
+license; copies obtained before then keep that license.
+
+Third-party JavaScript and CSS libraries embedded in the rendered tutorial pages under `assets/`
+(for example jQuery, Bootstrap and plotly.js) keep their own licenses.
