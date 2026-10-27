@@ -14,6 +14,8 @@ The owner uses it for job applications (academia and industry), so the tone stay
 - The repo's code is AGPL-3.0 (`LICENSE`, since October 2026; MIT before). Keep the footer license line
   in `index.html` and `gallery/index.html` in sync with it.
 - Keep `.nojekyll`. Without it GitHub runs Jekyll and turns stray `.md` files into pages.
+- `private/` is git-ignored and holds the owner's own notes (maintenance guide, link checker). Never
+  commit it or force-add files from it.
 - Keep these paths stable, because other sites link to them: everything under `assets/` and `gallery/`,
   and the redirect stubs in `2018/`, `2019/`, `2020/`, `about/`, `license_snippets/`.
 - Never create top-level folders named `plotbiomes/`, `bootstrapnet/` or `satellite-image-classification-r/`.

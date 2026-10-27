@@ -27,3 +27,6 @@ $RECYCLE.BIN/
 archive
 *.log
 *.zip
+
+# Owner's private notes (never published)
+private/
