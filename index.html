@@ -1,37 +1,227 @@
----
-layout: default
-title: Home
----
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Valentin Ștefan · Ecology, computer vision and open research software</title>
+  <meta name="description" content="Valentin Ștefan, postdoctoral researcher at UFZ and iDiv in Leipzig: computer vision and smartphones for automated pollinator and wildlife monitoring, plant–pollinator ecology, and open-source R, Python and Android software.">
+  <link rel="canonical" href="https://valentinitnelav.github.io/">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Valentin Ștefan">
+  <meta property="og:description" content="Computer vision and smartphones for automated pollinator and wildlife monitoring. Postdoc at UFZ and iDiv, Leipzig.">
+  <meta property="og:url" content="https://valentinitnelav.github.io/">
+  <meta property="og:image" content="https://valentinitnelav.github.io/img/faunapulse-pollinators.jpg">
+  <meta property="og:site_name" content="Valentin Ștefan">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<div class="posts">
-  {% for post in paginator.posts %}
-  <div class="post">
-    <h1 class="post-title">
-      <a href="{{ site.baseurl }}{{ post.url }}">
-        {{ post.title }}
-      </a>
-    </h1>
+  <nav class="site-nav" aria-label="Main">
+    <div class="wrap">
+      <a class="home" href="/" aria-current="page">Valentin Ștefan</a>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="/gallery/">R notes</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <span class="post-date">{{ post.date | date_to_string }}</span>
+  <main id="main" class="wrap">
+    <header class="intro">
+      <img src="/img/avatar.jpg" alt="A fluffy cat resting beside a laptop full of code" width="240" height="240">
+      <div>
+        <h1>Valentin Ștefan</h1>
+        <p class="role">Postdoctoral researcher · computer vision for biodiversity monitoring</p>
+        <p class="place">UFZ &amp; iDiv · Leipzig, Germany</p>
+      </div>
+    </header>
 
-    {{ post.content }}
-  </div>
-  {% endfor %}
-</div>
+    <ul class="links" aria-label="Profiles">
+      <li><a href="https://github.com/valentinitnelav">GitHub</a></li>
+      <li><a href="https://scholar.google.com/citations?user=8HlgXLYAAAAJ&amp;hl=en">Google Scholar</a></li>
+      <li><a href="https://orcid.org/0000-0002-4757-8008">ORCID</a></li>
+      <li><a href="https://www.linkedin.com/in/valentin-stefan/">LinkedIn</a></li>
+      <li><a href="https://bsky.app/profile/veralis.bsky.social">Bluesky</a></li>
+      <li><a href="https://stackoverflow.com/users/5193830/valentin-%c8%98tefan">Stack Overflow</a></li>
+    </ul>
 
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ site.baseurl }}/page{{paginator.next_page}}">Older</a>
-  {% else %}
-    <span class="pagination-item older">Older</span>
-  {% endif %}
-  {% if paginator.previous_page %}
-    {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}">Newer</a>
-    {% else %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}/page{{paginator.previous_page}}">Newer</a>
-    {% endif %}
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
-  {% endif %}
-</div>
+    <section id="about">
+      <h2>About</h2>
+      <p class="lead">I build tools that help ecologists see more of nature with less effort.</p>
+      <p>From 2016 to 2025 I worked as a scientist at the Helmholtz Centre for Environmental Research
+        (UFZ) and the German Centre for Integrative Biodiversity Research (iDiv), on plant–pollinator
+        networks, statistics and R packages for ecological analysis. My PhD (Martin Luther University
+        Halle-Wittenberg, 2026) combined computer vision, machine learning and affordable smartphones
+        to monitor pollinators automatically. Since July 2026 I have continued this work at UFZ and iDiv
+        as a postdoc.</p>
+      <p>I care about open science, careful data work and software that is pleasant to use. I work
+        mostly in <strong>R</strong> and <strong>Python</strong> (statistics, GIS, deep learning with YOLO
+        object detectors) and build Android apps in <strong>Flutter/Dart</strong> and <strong>Java</strong>.
+        I also like calm cats, calm people and soothing colours.</p>
+      <p>I am open to research and data science roles in academia and industry. The quickest way to reach
+        me is through <a href="https://www.linkedin.com/in/valentin-stefan/">LinkedIn</a>.</p>
+    </section>
+
+    <section id="work">
+      <h2>Current work</h2>
+      <p>Smartphones are cheap, robust and everywhere. I turn them into field cameras that record and
+        recognise insects and other animals, so that monitoring biodiversity does not depend on
+        expensive equipment or many hours of manual image sorting. Both apps are open source.</p>
+
+      <article class="feature" id="faunapulse">
+        <div class="feature-head">
+          <img src="/img/faunapulse-icon.png" alt="" width="128" height="128">
+          <div>
+            <h3><a href="https://github.com/valentinitnelav/fauna-pulse">FaunaPulse</a></h3>
+            <p class="tagline">An AI wildlife camera on your phone</p>
+          </div>
+        </div>
+        <p>FaunaPulse turns an Android smartphone into a camera that detects, tracks and identifies
+          animals in real time. The AI runs on the phone itself, offline, and you can load your own
+          detection and classification models. Its first scientific use is measuring visitation rates:
+          how often, and for how long, pollinators visit a flower.</p>
+        <ul class="points">
+          <li>Real-time detection and tracking on the device, no cloud needed</li>
+          <li>Bring your own models, with Python tools to convert them</li>
+          <li>Motion trigger, time-lapse with night mode, or scheduled video</li>
+        </ul>
+        <div class="shots">
+          <img src="/img/faunapulse-pollinators.jpg" alt="FaunaPulse detection boxes around three insects on thistle flowers" width="560" height="554" loading="lazy">
+          <img src="/img/faunapulse-wildlife.jpg" alt="FaunaPulse detection boxes around two deer on a forest path" width="559" height="560" loading="lazy">
+        </div>
+        <p class="actions">
+          <a class="button" href="https://play.google.com/store/apps/details?id=com.faunapulse.app">Get it on Google Play</a>
+          <a class="button" href="https://github.com/valentinitnelav/fauna-pulse">Source code</a>
+          <a href="https://huggingface.co/collections/Valen-Peregrine/faunapulse-6ad22f04766aed6641688544">AI models</a>
+          · <a href="https://doi.org/10.5281/zenodo.22309221">DOI</a>
+        </p>
+        <p class="meta">Flutter/Dart · Android · AGPL-3.0</p>
+      </article>
+
+      <article class="feature" id="faunalapse">
+        <div class="feature-head">
+          <img src="/img/faunalapse-icon.svg" alt="" width="128" height="128">
+          <div>
+            <h3><a href="https://github.com/valentinitnelav/fauna-lapse">FaunaLapse</a></h3>
+            <p class="tagline">A second life for old phones as time-lapse cameras</p>
+          </div>
+        </div>
+        <p>FaunaLapse, the sister app of FaunaPulse, turns old or inexpensive Android phones into
+          time-lapse cameras that watch one spot, such as a flower, for visiting insects. It takes short
+          photo bursts or video clips with the screen off, keeps only the square you choose, and rests
+          the camera between bursts to save battery and keep the phone cool. It needs no AI, so it runs
+          on phones from as far back as 2017.</p>
+        <ul class="points">
+          <li>Screen-off photo bursts or short video clips</li>
+          <li>Crops to the area you choose, for smaller files</li>
+          <li>Tested on Android 8 to 16; field tests are planned</li>
+        </ul>
+        <div class="shots shots-phone">
+          <img src="/img/faunalapse-bumblebee.jpg" alt="FaunaLapse aiming screen showing a bumblebee on a pink flower" width="360" height="800" loading="lazy">
+          <img src="/img/faunalapse-hoverfly.jpg" alt="FaunaLapse aiming screen showing a hoverfly on a yellow flower" width="360" height="800" loading="lazy">
+        </div>
+        <p class="actions">
+          <a class="button" href="https://github.com/valentinitnelav/fauna-lapse/releases">Download (beta)</a>
+          <a class="button" href="https://github.com/valentinitnelav/fauna-lapse">Source code</a>
+          <a href="https://doi.org/10.5281/zenodo.23318231">DOI</a>
+        </p>
+        <p class="meta">Java · Android · AGPL-3.0 · beta</p>
+      </article>
+
+      <h3 class="subhead">Related</h3>
+      <ul class="cards">
+        <li class="card">
+          <h3><a href="https://github.com/valentinitnelav/smartphone-insect-detect">Pollinator detection with YOLO</a></h3>
+          <p>Code and data for our 2025 <em>Scientific Reports</em> paper testing pretrained YOLO
+            detectors on unseen time-lapse images of pollinators.</p>
+          <p class="meta">Python · <a href="https://doi.org/10.1038/s41598-025-16140-z">paper</a> · <a href="https://doi.org/10.5281/zenodo.15096610">dataset</a></p>
+        </li>
+        <li class="card">
+          <h3><a href="https://github.com/valentinitnelav/fauna-pulse-models">FaunaPulse models</a></h3>
+          <p>Tools to convert and quantise detection and identification models so they run on phones
+            inside FaunaPulse.</p>
+          <p class="meta">Python · <a href="https://doi.org/10.5281/zenodo.23436563">DOI</a></p>
+        </li>
+      </ul>
+
+      <h2 id="software">R packages</h2>
+      <ul class="cards">
+        <li class="card">
+          <h3><a href="https://valentinitnelav.github.io/plotbiomes/">plotbiomes</a></h3>
+          <p>Whittaker biome diagrams with ggplot2, for placing study sites in climate space.</p>
+          <p class="meta">R · <a href="https://github.com/valentinitnelav/plotbiomes">code</a> · <a href="https://doi.org/10.5281/zenodo.7145245">DOI</a></p>
+        </li>
+        <li class="card">
+          <h3><a href="https://github.com/valentinitnelav/geobuffer">geobuffer</a></h3>
+          <p>Geodesic buffers around points, with radii in metres.</p>
+          <p class="meta">R · <a href="https://doi.org/10.5281/zenodo.7127818">DOI</a></p>
+        </li>
+        <li class="card">
+          <h3><a href="https://valentinitnelav.github.io/bootstrapnet/">bootstrapnet</a></h3>
+          <p>Bootstrapping indices of bipartite ecological networks, such as plant–pollinator networks.</p>
+          <p class="meta">R · <a href="https://github.com/valentinitnelav/bootstrapnet">code</a> · <a href="https://doi.org/10.5281/zenodo.3997559">DOI</a></p>
+        </li>
+        <li class="card">
+          <h3><a href="https://github.com/valentinitnelav/bootdissim">bootdissim</a></h3>
+          <p>Turnover saturation curves via bootstrapping, to check whether sampling captured
+            community turnover.</p>
+          <p class="meta">R · <a href="https://doi.org/10.5281/zenodo.7145381">DOI</a></p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="publications">
+      <h2>Selected publications</h2>
+      <ul class="pubs">
+        <li>
+          <a class="title" href="https://doi.org/10.25673/123662">Integrating computer vision, machine learning and technologies for automated monitoring of pollinators</a>
+          <span class="meta"><b>Ștefan V</b> (2026) PhD thesis, Martin Luther University Halle-Wittenberg</span>
+        </li>
+        <li>
+          <a class="title" href="https://doi.org/10.1038/s41598-025-16140-z">Successes and limitations of pretrained YOLO detectors applied to unseen time-lapse images for automated pollinator monitoring</a>
+          <span class="meta"><b>Ștefan V</b>, Stark T, Wurm M, Taubenböck H, Knight TM (2025) <em>Scientific Reports</em></span>
+        </li>
+        <li>
+          <a class="title" href="https://doi.org/10.26786/1920-7603(2025)778">Utilising affordable smartphones and open-source time-lapse photography for pollinator image collection and annotation</a>
+          <span class="meta"><b>Ștefan V</b>, Workman A, Cobain JC, Rakosy D, Knight TM (2025) <em>Journal of Pollination Ecology</em></span>
+        </li>
+        <li>
+          <a class="title" href="https://doi.org/10.1038/s41598-023-43482-3">YOLO object detection models can locate and classify broad groups of flower-visiting arthropods in images</a>
+          <span class="meta">Stark T, <b>Ștefan V</b>, Wurm M, Spanier R, Taubenböck H, Knight TM (2023) <em>Scientific Reports</em></span>
+        </li>
+        <li>
+          <a class="title" href="https://doi.org/10.1371/journal.pone.0263576">Intensive grazing alters the diversity, composition and structure of plant–pollinator interaction networks in Eastern European grasslands</a>
+          <span class="meta">Rakosy D, Motivans E, <b>Ștefan V</b>, et al. (2022) <em>PLOS ONE</em></span>
+        </li>
+        <li>
+          <a class="title" href="https://doi.org/10.1038/s41467-020-17751-y">Land use and pollinator dependency drives global patterns of pollen limitation in the Anthropocene</a>
+          <span class="meta">Bennett JM, Steets JA, Burns JH, … <b>Ștefan V</b>, … Ashman T-L (2020) <em>Nature Communications</em></span>
+        </li>
+      </ul>
+      <p>The full list is on <a href="https://scholar.google.com/citations?user=8HlgXLYAAAAJ&amp;hl=en">Google Scholar</a>
+        and <a href="https://orcid.org/0000-0002-4757-8008">ORCID</a>.</p>
+    </section>
+
+    <section id="writing">
+      <h2>Notes and tutorials</h2>
+      <p>Over the years I have written R tutorials and plotting scripts on maps, confidence bands,
+        phylogenetic trees and more. They are collected under <a href="/gallery/">R notes &amp; graph gallery</a>.
+        Older posts live on my <a href="https://seethedatablog.wordpress.com/">WordPress blog</a>, and I have
+        answered many R questions on <a href="https://stackoverflow.com/users/5193830/valentin-%c8%98tefan">Stack Overflow</a>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="footer">
+    <div class="wrap">
+      <p>© Valentin Ștefan. The code on this site (R scripts, R Markdown, HTML and CSS) is free to reuse under the
+        <a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/LICENSE.md">MIT license</a>.</p>
+      <p>No cookies or trackers. Hosted by GitHub Pages, which keeps standard server logs
+        (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy statement</a>).</p>
+    </div>
+  </footer>
+</body>
+</html>

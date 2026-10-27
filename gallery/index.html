@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>R notes &amp; graph gallery · Valentin Ștefan</title>
+  <meta name="description" content="R tutorials and a gallery of data visualisation scripts (maps, confidence bands, barplots, phylogenetic trees) by Valentin Ștefan.">
+  <link rel="canonical" href="https://valentinitnelav.github.io/gallery/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="R notes &amp; graph gallery · Valentin Ștefan">
+  <meta property="og:description" content="R tutorials and a gallery of data visualisation scripts.">
+  <meta property="og:url" content="https://valentinitnelav.github.io/gallery/">
+  <meta property="og:site_name" content="Valentin Ștefan">
+  <meta property="og:image" content="https://valentinitnelav.github.io/gallery/World%20map%20Robinson%20projection%20-%20ggplot.png">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="site-nav" aria-label="Main">
+    <div class="wrap">
+      <a class="home" href="/">Valentin Ștefan</a>
+      <ul>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/#publications">Publications</a></li>
+        <li><a href="/gallery/" aria-current="page">R notes</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="wrap">
+    <section id="notes">
+      <h1>R notes &amp; graph gallery</h1>
+      <p class="lead">Small tutorials and plotting scripts I wrote between 2017 and 2020, mostly while
+        answering questions or figuring something out for my own work. They are older, but people
+        still find them useful, so they stay here.</p>
+      <p class="note">More writing on my <a href="https://seethedatablog.wordpress.com/">WordPress blog</a>
+        and in my <a href="https://stackoverflow.com/users/5193830/valentin-%c8%98tefan">Stack Overflow answers</a>.</p>
+
+      <h2>Tutorials</h2>
+      <ul class="notes-list">
+        <li>
+          <a class="title" href="/assets/2020-05-23-shade-plot-background/shade-plot-background.html">Use <code>geom_rect</code> or <code>geom_polygon</code> from ggplot2 for shading effects</a>
+          <span class="meta">May 2020 · ggplot2 · also on <a href="https://rpubs.com/valentin/ggplot2-geoms-rect-polygon-shading-effects">RPubs</a></span>
+        </li>
+        <li>
+          <a class="title" href="/assets/2020-05-15-pacific-map-voronoi/pacific-map-voronoi.html">Pacific-centred map with Voronoi tessellation and repelled text labels</a>
+          <span class="meta">May 2020 · maps, sf, ggrepel · also on <a href="https://rpubs.com/valentin/pacific-centered-map-voronoi-tessellation">RPubs</a></span>
+        </li>
+        <li>
+          <a class="title" href="/satellite-image-classification-r/">Pixel-based classification of Sentinel-2 images with caret: Random Forests, SVM and neural networks</a>
+          <span class="meta">April 2019 · remote sensing, machine learning · <a href="https://github.com/valentinitnelav/satellite-image-classification-r">code</a></span>
+        </li>
+        <li>
+          <a class="title" href="/assets/2018-08-25-PCA-interactive-biplot/PCA-interactive-biplot.html">An interactive PCA biplot with <code>ggbiplot</code> and <code>plotly</code></a>
+          <span class="meta">August 2018 · PCA, plotly</span>
+        </li>
+        <li>
+          <a class="title" href="/assets/2018-05-27-R2-1to1-line/R2-1to1-line.html">Coefficient of determination for the one-to-one line</a>
+          <span class="meta">May 2018 · statistics</span>
+        </li>
+        <li>
+          <a class="title" href="/assets/2018-01-07-ggtree/2018-01-07-ggtree.html">Visualising and annotating a phylogenetic tree with <code>ggtree</code></a>
+          <span class="meta">January 2018 · phylogenetics, ggplot2</span>
+        </li>
+        <li>
+          <a class="title" href="/assets/2018-01-06-Import-PostScript-grImport/Import_PostScript_grImport.html">Digitise graphs with R: import and edit graphs from PDF files</a>
+          <span class="meta">January 2018 · grImport, PostScript</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="gallery">
+      <h2>Graph gallery</h2>
+      <p>Each picture links to the R script that draws it. The coding style varies, because each one
+        was an experiment with a new package or idea.</p>
+
+      <h3>Maps</h3>
+      <ul class="gallery">
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/Choropleth%20world%20map%2C%20HPI%20-%20tmap.R"><span class="thumb"><img src="Choropleth%20world%20map%2C%20HPI%20-%20tmap.png" alt="Choropleth world map of the Happy Planet Index" width="442" height="236" loading="lazy"></span></a>
+          <figcaption>Choropleth world map <span>tmap · <a href="Choropleth%20world%20map%2C%20HPI%20-%20tmap.html">interactive version</a></span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/world%20cities%20map%20in%20Eckert%20IV%20ggplot%20%26%20ggrepel.R"><span class="thumb"><img src="world%20cities%20map%20in%20Eckert%20IV%20ggplot%20%26%20ggrepel.png" alt="World map in Eckert IV projection with labelled cities" width="885" height="413" loading="lazy"></span></a>
+          <figcaption>World cities, Eckert IV projection <span>ggplot2 &amp; ggrepel</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/World%20map%20Robinson%20projection%20-%20ggplot.R"><span class="thumb"><img src="World%20map%20Robinson%20projection%20-%20ggplot.png" alt="World map in Robinson projection" width="442" height="236" loading="lazy"></span></a>
+          <figcaption>World map, Robinson projection <span>ggplot2</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/Pacific%20centered%20world%20map%20with%20ggplot.R"><span class="thumb"><img src="Pacific%20centered%20world%20map%20with%20ggplot.png" alt="Pacific-centred world map" width="442" height="236" loading="lazy"></span></a>
+          <figcaption>Pacific-centred world map <span>ggplot2</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/Shift%20central%20%28prime%29%20meridian.R"><span class="thumb"><img src="Shift%20central%20%28prime%29%20meridian.png" alt="World map with a shifted central meridian" width="442" height="236" loading="lazy"></span></a>
+          <figcaption>Shifting the central meridian <span>ggplot2 &amp; maptools</span></figcaption></figure></li>
+      </ul>
+
+      <h3>Line and dot plots</h3>
+      <ul class="gallery">
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/colored_confidence_bands.R"><span class="thumb"><img src="colored_confidence_bands.png" alt="Lines with coloured confidence bands" width="590" height="472" loading="lazy"></span></a>
+          <figcaption>Coloured confidence bands <span>ggplot2</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/colored_confidence_lines.R"><span class="thumb"><img src="colored_confidence_lines.png" alt="Lines with coloured confidence lines" width="590" height="472" loading="lazy"></span></a>
+          <figcaption>Coloured confidence lines <span>ggplot2</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/dotplot_ci_bars.R"><span class="thumb"><img src="dotplot_ci_bars.png" alt="Dot plot with confidence interval bars" width="590" height="472" loading="lazy"></span></a>
+          <figcaption>Dot plot with confidence intervals <span>ggplot2</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/simple_confidence_bands.R"><span class="thumb"><img src="simple_confidence_bands.png" alt="Lines with simple grey confidence bands" width="590" height="472" loading="lazy"></span></a>
+          <figcaption>Simple confidence bands <span>ggplot2</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/simple_confidence_lines.R"><span class="thumb"><img src="simple_confidence_lines.png" alt="Lines with simple dashed confidence lines" width="590" height="472" loading="lazy"></span></a>
+          <figcaption>Simple confidence lines <span>ggplot2</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/lineplot_inwards_ticks_ggplot.R"><span class="thumb"><img src="lineplot_inwards_ticks_ggplot.png" alt="Line plot with inward-facing axis ticks, ggplot2" width="590" height="472" loading="lazy"></span></a>
+          <figcaption>Line plot with inward ticks <span>ggplot2</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/lineplot_inwards_ticks_base_R_plot.R"><span class="thumb"><img src="lineplot_inwards_ticks_base_R_plot.png" alt="Line plot with inward-facing axis ticks, base R" width="590" height="472" loading="lazy"></span></a>
+          <figcaption>Line plot with inward ticks <span>base R</span></figcaption></figure></li>
+      </ul>
+
+      <h3>Barplots</h3>
+      <ul class="gallery">
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/barplot_base_r_1.R"><span class="thumb"><img src="barplot%20base%20R%20%281%29.png" alt="Grouped barplot with error bars, base R" width="350" height="250" loading="lazy"></span></a>
+          <figcaption>Barplot with error bars <span>base R</span></figcaption></figure></li>
+        <li><figure><a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/gallery/barplot_ggplot_dodged_1.R"><span class="thumb"><img src="barplot_ggplot_dodged_1.png" alt="Dodged barplot, ggplot2" width="354" height="236" loading="lazy"></span></a>
+          <figcaption>Dodged barplot <span>ggplot2</span></figcaption></figure></li>
+      </ul>
+
+      <h3>Other</h3>
+      <ul class="gallery">
+        <li><figure><a href="/assets/2018-01-07-ggtree/2018-01-07-ggtree.html"><span class="thumb"><img src="/assets/2018-01-07-ggtree/tree_labeled.png" alt="Phylogenetic tree with labelled clades" width="1535" height="1358" loading="lazy"></span></a>
+          <figcaption>Annotated phylogenetic tree <span>ggtree</span></figcaption></figure></li>
+        <li><figure><a href="/assets/2018-01-07-ggtree/2018-01-07-ggtree.html"><span class="thumb"><img src="/assets/2018-01-07-ggtree/tree_labeled_bars.png" alt="Phylogenetic tree with labelled clades and side bars" width="1535" height="1358" loading="lazy"></span></a>
+          <figcaption>Tree with clade bars <span>ggtree</span></figcaption></figure></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="footer">
+    <div class="wrap">
+      <p>© Valentin Ștefan. The code on this site (R scripts, R Markdown, HTML and CSS) is free to reuse under the
+        <a href="https://github.com/valentinitnelav/valentinitnelav.github.io/blob/master/LICENSE.md">MIT license</a>.</p>
+      <p>No cookies or trackers. Hosted by GitHub Pages, which keeps standard server logs
+        (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy statement</a>).</p>
+    </div>
+  </footer>
+</body>
+</html>
